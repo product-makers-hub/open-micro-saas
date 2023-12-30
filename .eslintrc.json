@@ -1,3 +1,8 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "prettier"],
+  "plugins": ["filenames-simple"],
+  "rules": {
+    "filenames-simple/naming-convention": ["error", { "rule": "kebab-case" }],
+    "no-unused-vars": "error"
+  }
 }
