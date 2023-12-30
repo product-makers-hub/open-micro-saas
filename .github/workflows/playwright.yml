@@ -8,8 +8,23 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Check environment variables
+        # add your secrets to the repo settings
         run: |
           if [ -z "${{ secrets.POSTGRES_USER }}" ]; then echo "POSTGRES_USER is not set"; else echo "POSTGRES_USER is set"; fi
           if [ -z "${{ secrets.POSTGRES_PASSWORD }}" ]; then echo "POSTGRES_PASSWORD is not set"; else echo "POSTGRES_PASSWORD is set"; fi
@@ -24,12 +39,17 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - name: Generate Prisma Client
+        run: npx prisma generate
+      - name: Run Prisma Migrations
+        env:
+          DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:${{ job.services.postgres.ports[5432] }}/${{ secrets.POSTGRES_DB }}
+        run: npx prisma migrate deploy
       - name: Run Playwright tests
-        # add your secrets to the repo settings
         env:
           CI: true
           NEXTAUTH_URL: ${{secrets.NEXTAUTH_URL}}
-          DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+          DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:${{ job.services.postgres.ports[5432] }}/${{ secrets.POSTGRES_DB }}
         run: npx playwright test
       - uses: actions/upload-artifact@v3
         if: always()
