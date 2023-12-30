@@ -1,3 +1,7 @@
 export default function Home() {
-  return <h1>Home</h1>;
+  return (
+    <div className="p-10">
+      <button className="btn btn-primary">Button</button>
+    </div>
+  );
 }
