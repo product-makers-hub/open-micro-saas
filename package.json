@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "playwright test"
   },
   "dependencies": {
     "next": "14.0.4",
@@ -16,6 +17,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
