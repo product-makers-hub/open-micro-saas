@@ -9,6 +9,12 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
+      - name: Check environment variables
+        run: |
+          if [ -z "${{ secrets.POSTGRES_USER }}" ]; then echo "POSTGRES_USER is not set"; else echo "POSTGRES_USER is set"; fi
+          if [ -z "${{ secrets.POSTGRES_PASSWORD }}" ]; then echo "POSTGRES_PASSWORD is not set"; else echo "POSTGRES_PASSWORD is set"; fi
+          if [ -z "${{ secrets.POSTGRES_DB }}" ]; then echo "POSTGRES_DB is not set"; else echo "POSTGRES_DB is set"; fi
+          if [ -z "${{ secrets.NEXTAUTH_URL }}" ]; then echo "NEXTAUTH_URL is not set"; else echo "NEXTAUTH_URL is set"; fi
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -23,11 +29,7 @@ jobs:
         env:
           CI: true
           NEXTAUTH_URL: ${{secrets.NEXTAUTH_URL}}
-          DATABASE_URL: ${{secrets.DATABASE_URL}}
-          POSTGRES_HOST: ${{secrets.POSTGRES_HOST}}
-          POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
-          POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+          DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
         run: npx playwright test
       - uses: actions/upload-artifact@v3
         if: always()
