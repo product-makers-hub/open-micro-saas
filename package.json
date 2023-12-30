@@ -10,6 +10,7 @@
     "format": "prettier --write --ignore-path .gitignore .",
     "prepare": "husky install",
     "test": "playwright test",
+    "test:ui": "playwright test --ui",
     "test:db:compose": "docker-compose -f docker-compose.test.yml up -d",
     "db:compose": "docker-compose up -d",
     "db:migrate:dev": "prisma migrate dev",
