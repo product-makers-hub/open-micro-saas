@@ -50,6 +50,15 @@ model User {
   createdAt     DateTime  @default(now())
   accounts      Account[]
   sessions      Session[]
+  roleId        Int
+  role          Role      @relation(fields: [roleId], references: [id])
+}
+
+model Role {
+  id        Int   @id @default(autoincrement())
+  publicId  String   @default(uuid())
+  name      String   @unique
+  users     User[]
 }
 
 model VerificationToken {
