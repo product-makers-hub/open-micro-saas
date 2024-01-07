@@ -11,8 +11,9 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
+  id                 Int     @id @default(autoincrement())
+  publicId           String  @default(uuid())
+  userId             Int
   type               String
   provider           String
   providerAccountId  String
@@ -30,17 +31,19 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
+  id           Int     @id @default(autoincrement())
+  publicId     String  @default(uuid())
+  sessionToken String  @unique
+  userId       Int
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            Int      @id @default(autoincrement())
+  publicId      String   @default(uuid())
   name          String?
-  email         String?   @unique
+  email         String?  @unique
   password      String?   
   emailVerified DateTime?
   image         String?
@@ -50,6 +53,8 @@ model User {
 }
 
 model VerificationToken {
+  id         Int      @id @default(autoincrement())
+  publicId   String   @default(uuid())
   identifier String
   token      String   @unique
   expires    DateTime
