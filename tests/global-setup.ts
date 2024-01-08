@@ -19,7 +19,6 @@ setup("let the admin user login with email and password", async ({ page }) => {
   await page.getByLabel(/Email/i).fill(adminUser.email);
   await page.getByLabel(/Password/i).fill(adminUser.plainPassword);
   await page.getByRole("button", { name: /Sign in with credentials/i }).click();
-  await page.waitForURL(adminUser.appUrl, { waitUntil: "commit" });
 
   // assert
   await expect(page).toHaveURL("/");

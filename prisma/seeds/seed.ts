@@ -29,7 +29,7 @@ export async function createAdminRoleAndUser() {
     },
   });
 
-  console.log({ userAdmin });
+  console.log({ userAdmin: { ...userAdmin, password: undefined } });
 }
 
 export async function createNormalRoleAndUser() {
@@ -59,7 +59,7 @@ export async function createNormalRoleAndUser() {
     },
   });
 
-  console.log({ userNormal });
+  console.log({ userNormal: { ...userNormal, password: undefined } });
 }
 
 async function main() {

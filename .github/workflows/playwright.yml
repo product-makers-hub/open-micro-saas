@@ -30,6 +30,7 @@ jobs:
           if [ -z "${{ secrets.POSTGRES_PASSWORD }}" ]; then echo "POSTGRES_PASSWORD is not set"; else echo "POSTGRES_PASSWORD is set"; fi
           if [ -z "${{ secrets.POSTGRES_DB }}" ]; then echo "POSTGRES_DB is not set"; else echo "POSTGRES_DB is set"; fi
           if [ -z "${{ secrets.NEXTAUTH_URL }}" ]; then echo "NEXTAUTH_URL is not set"; else echo "NEXTAUTH_URL is set"; fi
+          if [ -z "${{ secrets.NEXTAUTH_SECRET }}" ]; then echo "NEXTAUTH_SECRET is not set"; else echo "NEXTAUTH_SECRET is set"; fi
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
