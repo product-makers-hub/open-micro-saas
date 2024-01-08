@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-
+import prisma from "../../src/libs/prisma";
 import { ADMIN_ROLE_ID, USER_ROLE_ID } from "../../src/consts/roles-consts";
+import { hashPassword } from "../../src/libs/password-lib";
 
 async function main() {
   const roleAdmin = await prisma.role.upsert({
@@ -30,7 +29,7 @@ async function main() {
     create: {
       email: "admin@open-saas.com",
       name: "Admin",
-      password: "admin",
+      password: await hashPassword("admin"),
       role: {
         connect: {
           id: roleAdmin.id,
@@ -45,7 +44,7 @@ async function main() {
     create: {
       email: "user@open-saas.com",
       name: "Jimmy Doe",
-      password: "user",
+      password: await hashPassword("user"),
       role: {
         connect: {
           id: roleUser.id,
@@ -56,6 +55,7 @@ async function main() {
 
   console.log({ userAdmin, userNormal });
 }
+
 main()
   .then(async () => {
     await prisma.$disconnect();

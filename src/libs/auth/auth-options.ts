@@ -10,12 +10,18 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   providers,
   session: {
-    strategy: "database",
+    strategy: "jwt",
   },
   callbacks: {
-    async session({ session, user }) {
+    async session({ session }) {
+      console.log("session", session);
+
+      if (!session.user.email) {
+        throw new Error("Missing email");
+      }
+
       const userData = await prisma.user.findUnique({
-        where: { email: user.email },
+        where: { email: session.user.email },
         include: { role: true },
       });
 
