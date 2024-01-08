@@ -50,6 +50,7 @@ jobs:
         env:
           CI: true
           NEXTAUTH_URL: ${{secrets.NEXTAUTH_URL}}
+          NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
           DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:${{ job.services.postgres.ports[5432] }}/${{ secrets.POSTGRES_DB }}
         run: npx playwright test
       - uses: actions/upload-artifact@v3
