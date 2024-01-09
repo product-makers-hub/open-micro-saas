@@ -67,6 +67,16 @@ export default defineConfig({
       },
     },
 
+    {
+      name: "log out user - chromium",
+      testMatch: "**/logout-user.spec.ts",
+      dependencies: ["login users - setup"],
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: adminUser.storageSessionPath,
+      },
+    },
+
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
