@@ -59,7 +59,7 @@ export default defineConfig({
 
     {
       name: "chromium - logged in admin user",
-      dependencies: ["login admin - setup"],
+      dependencies: ["login users - setup"],
       testIgnore: "**/logged-out-user-tests/**",
       use: {
         ...devices["Desktop Chrome"],
