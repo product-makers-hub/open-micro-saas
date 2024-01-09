@@ -1,5 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
+import { adminUser } from "./tests/data/admin-user";
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -33,7 +35,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "login admin - setup",
+      name: "login users - setup",
       testMatch: /global\-setup.ts/,
       teardown: "cleanup db",
     },
@@ -45,14 +47,24 @@ export default defineConfig({
 
     {
       name: "chromium - logged out user",
-      testMatch: "**/*(login|logged-out)*.spec.ts",
+      testMatch: "**/logged-out-user-tests/**",
       use: { ...devices["Desktop Chrome"] },
     },
 
     {
       name: "firefox - logged out user",
-      testMatch: "**/*(login|logged-out)*.spec.ts",
+      testMatch: "**/logged-out-user-tests/**",
       use: { ...devices["Desktop Firefox"] },
+    },
+
+    {
+      name: "chromium - logged in admin user",
+      dependencies: ["login admin - setup"],
+      testIgnore: "**/logged-out-user-tests/**",
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: adminUser.storageSessionPath,
+      },
     },
 
     // {
