@@ -52,7 +52,7 @@ export const Navbar = () => {
         </div>
         <div>
           {status === "unauthenticated" && (
-            <Link href="/api/auth/signin" className="btn">
+            <Link href="/auth/login" className="btn">
               Login
             </Link>
           )}
