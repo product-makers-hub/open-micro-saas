@@ -23,7 +23,7 @@ export default function Component() {
             Sign in to your account
           </h2>
         </div>
-        <form action={handleSubmit} className="mt-8 space-y-6" method="POST">
+        <form action={handleSubmit} className="mt-8 space-y-6">
           <input name="remember" type="hidden" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -47,6 +47,8 @@ export default function Component() {
                 <input
                   name="password"
                   type="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
                   required
                   className="input input-bordered w-full"
                 />
