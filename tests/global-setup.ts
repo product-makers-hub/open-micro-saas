@@ -20,18 +20,19 @@ setup("let the admin user login with email and password", async ({ page }) => {
   // arrange
   await createAdminRoleAndUser();
   await page.goto(adminUser.loginUrl);
+  await expect(page.getByRole("link", { name: /Login/i })).toBeVisible();
 
   // act
   await page.getByLabel(/Email/i).fill(adminUser.email);
   await page.getByLabel(/Password/i).fill(adminUser.plainPassword);
-  await page.getByRole("button", { name: /Sign in with credentials/i }).click();
+  await page.getByRole("button", { name: /Sign in$/i }).click();
 
   // assert
   await expect(page).toHaveURL(adminUser.appUrl);
   await expect(
     page.getByRole("img", { name: "user profile avatar" }),
   ).toBeVisible();
-  await expect(page.getByRole("button", { name: /Login/i })).not.toBeVisible();
+  await expect(page.getByRole("link", { name: /Login/i })).not.toBeVisible();
 
   await page.context().storageState({ path: adminUser.storageSessionPath });
 });
@@ -40,11 +41,12 @@ setup("let a normal user login with email and password", async ({ page }) => {
   // arrange
   await createNormalRoleAndUser();
   await page.goto(normalUser.loginUrl);
+  await expect(page.getByRole("link", { name: /Login/i })).toBeVisible();
 
   // act
   await page.getByLabel(/Email/i).fill(normalUser.email);
   await page.getByLabel(/Password/i).fill(normalUser.plainPassword);
-  await page.getByRole("button", { name: /Sign in with credentials/i }).click();
+  await page.getByRole("button", { name: /Sign in$/i }).click();
 
   // assert
   await expect(page).toHaveURL(normalUser.appUrl);

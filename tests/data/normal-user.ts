@@ -3,6 +3,6 @@ export const normalUser = {
   name: "Jimmy Doe",
   plainPassword: "user",
   appUrl: "/",
-  loginUrl: "/api/auth/signin",
+  loginUrl: "/auth/login",
   storageSessionPath: "./tests/data/normal-user.session.json",
 };

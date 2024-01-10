@@ -3,6 +3,6 @@ export const adminUser = {
   name: "Admin",
   plainPassword: "admin",
   appUrl: "/",
-  loginUrl: "/api/auth/signin",
+  loginUrl: "/auth/login",
   storageSessionPath: "./tests/data/admin-user.session.json",
 };

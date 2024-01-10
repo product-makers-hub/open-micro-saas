@@ -14,8 +14,6 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session }) {
-      console.log("session", session);
-
       if (!session.user.email) {
         throw new Error("Missing email");
       }
