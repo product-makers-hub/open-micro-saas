@@ -46,21 +46,21 @@ export default defineConfig({
     },
 
     {
-      name: "chromium - logged out user",
-      testMatch: "**/logged-out-user-tests/**",
+      name: "chromium - unauthenticated",
+      testMatch: "**/unauthenticated/**",
       use: { ...devices["Desktop Chrome"] },
     },
 
     {
-      name: "firefox - logged out user",
-      testMatch: "**/logged-out-user-tests/**",
+      name: "firefox - unauthenticated",
+      testMatch: "**/unauthenticated/**",
       use: { ...devices["Desktop Firefox"] },
     },
 
     {
-      name: "chromium - logged in admin user",
+      name: "chromium - authenticated admin user",
       dependencies: ["login users - setup"],
-      testIgnore: "**/logged-out-user-tests/**",
+      testIgnore: "**/unauthenticated/**",
       use: {
         ...devices["Desktop Chrome"],
         storageState: adminUser.storageSessionPath,
