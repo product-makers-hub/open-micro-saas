@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
 
+import { authConfig } from "@/config";
+
 test("navigation to login", async ({ page }) => {
   // arrange
   await page.goto("/");
@@ -8,7 +10,7 @@ test("navigation to login", async ({ page }) => {
   await page.getByRole("link", { name: /login/i }).click();
 
   // assert
-  await expect(page).toHaveURL("/auth/login");
+  await expect(page).toHaveURL(authConfig.loginUrl);
   await expect(
     page.getByRole("heading", { name: /Sign in to your account/i }),
   ).toBeVisible();
