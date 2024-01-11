@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 import { adminUser } from "./tests/data/admin-user";
+import { normalUser } from "./tests/data/normal-user";
 
 /**
  * Read environment variables from file.
@@ -60,10 +61,24 @@ export default defineConfig({
     {
       name: "chromium - authenticated admin user",
       dependencies: ["login users - setup"],
-      testIgnore: "**/unauthenticated/**",
+      testIgnore: [
+        "**/unauthenticated/**",
+        "**/authenticated/dashboard/admin-dashboard-access.spec.ts",
+      ],
       use: {
         ...devices["Desktop Chrome"],
         storageState: adminUser.storageSessionPath,
+      },
+    },
+
+    {
+      name: "chromium - authenticated normal user",
+      dependencies: ["login users - setup"],
+      testMatch: "**/authenticated/dashboard/admin-dashboard-access.spec.ts",
+      testIgnore: "**/unauthenticated/**",
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: normalUser.storageSessionPath,
       },
     },
 
