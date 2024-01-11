@@ -3,7 +3,9 @@ import React from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
-export default function Component() {
+import { authConfig } from "@/config";
+
+export default function LoginPage() {
   const handleSubmit = async (formData: FormData) => {
     const email = formData.get("email");
     const password = formData.get("password");
@@ -11,7 +13,7 @@ export default function Component() {
     await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/",
+      callbackUrl: authConfig.normalUserCallbackUrl,
     });
   };
 

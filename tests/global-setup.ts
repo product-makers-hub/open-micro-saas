@@ -33,6 +33,9 @@ setup("let the admin user login with email and password", async ({ page }) => {
     page.getByRole("img", { name: "user profile avatar" }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: /Login/i })).not.toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: /admin dashboard/i }),
+  ).toBeVisible();
 
   await page.context().storageState({ path: adminUser.storageSessionPath });
 });
@@ -54,6 +57,7 @@ setup("let a normal user login with email and password", async ({ page }) => {
     page.getByRole("img", { name: "user profile avatar" }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: /Login/i })).not.toBeVisible();
+  await expect(page.getByRole("heading", { name: /dashboard/i })).toBeVisible();
 
   await page.context().storageState({ path: normalUser.storageSessionPath });
 });
