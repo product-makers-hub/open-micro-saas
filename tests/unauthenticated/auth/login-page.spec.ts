@@ -36,4 +36,21 @@ test.describe("Login page", () => {
       page.getByRole("link", { name: /forgot your password/i }),
     ).toBeVisible();
   });
+
+  test("should show a login error message when the credentials are invalid", async ({
+    page,
+  }) => {
+    // arrange
+    await page.goto("/auth/login");
+
+    // act
+    await page.getByLabel(/email/i).fill("foo@mail.com");
+    await page.getByLabel(/password/i).fill("123456");
+    await page.getByRole("button", { name: /sign in$/i }).click();
+
+    // assert
+    await expect(
+      page.getByText(/Email or password are invalid/i),
+    ).toBeVisible();
+  });
 });

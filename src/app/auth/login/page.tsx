@@ -1,20 +1,36 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import { authConfig } from "@/config";
 
 export default function LoginPage() {
+  const [loginError, setLoginError] = React.useState<string | null>(null);
+
+  const router = useRouter();
+
   const handleSubmit = async (formData: FormData) => {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    await signIn("credentials", {
+    const res = await signIn("credentials", {
       email,
       password,
       callbackUrl: authConfig.normalUserCallbackUrl,
+      redirect: false,
     });
+
+    if (res?.error) {
+      setLoginError(res.error);
+      return;
+    }
+
+    if (res?.url) {
+      router.replace(res.url);
+    }
   };
 
   return (
@@ -25,6 +41,12 @@ export default function LoginPage() {
             Sign in to your account
           </h2>
         </div>
+        {loginError && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+            <strong className="font-bold">Error!</strong>
+            <span className="block sm:inline"> {loginError}</span>
+          </div>
+        )}
         <form action={handleSubmit} className="mt-8 space-y-6">
           <input name="remember" type="hidden" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
