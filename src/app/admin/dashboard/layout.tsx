@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth-options";
 import { authConfig } from "@/config";
 import { ADMIN_ROLE_NAME } from "@/consts/roles-consts";
+import { Drawer } from "@/components/drawer";
 
 export default async function AdminDashboardLayout({
   children,
@@ -21,5 +22,5 @@ export default async function AdminDashboardLayout({
     redirect(authConfig.loginUrl);
   }
 
-  return <>{children}</>;
+  return <Drawer>{children}</Drawer>;
 }
