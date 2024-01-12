@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import { authConfig } from "@/config";
+import { Providers } from "@/components/providers";
 
 export default function LoginPage() {
   const [loginError, setLoginError] = React.useState<string | null>(null);
@@ -99,9 +100,7 @@ export default function LoginPage() {
           </div>
         </form>
         <p className="mt-2 text-center text-sm">Or sign in with</p>
-        <div className="mt-1 flex justify-center">
-          <button className="btn w-full">Sign in with Google</button>
-        </div>
+        <Providers />
       </div>
     </div>
   );
