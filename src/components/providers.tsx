@@ -25,7 +25,6 @@ export const Providers = () => {
     <>
       {providers &&
         Object.values(providers).map((provider) => {
-          console.log("provider", provider);
           if (provider.id === "credentials") return null;
 
           return (

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/libs/auth/auth-options";
 import { authConfig } from "@/config";
 
-export default async function LoginLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
