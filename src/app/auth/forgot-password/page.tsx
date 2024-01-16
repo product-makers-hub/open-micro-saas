@@ -1,5 +1,8 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+import { requestResetPassword } from "./actions";
+import { ForgotPasswordForm } from "@/components/forgot-password-form";
 
 export const metadata: Metadata = {
   title: "Forgot password",
@@ -17,29 +20,7 @@ export default function ForgotPasswordPage() {
           Please enter your email address below and we will send you a link to
           reset your password if you have an account.
         </p>
-        <form aria-label="forgot password form" className="mt-8 space-y-6">
-          <label className="form-control w-full">
-            <div className="label">
-              <span className="label-text">Email</span>
-            </div>
-            <input
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="Email address"
-              required
-              className="input input-bordered w-full"
-            />
-          </label>
-          <div>
-            <button
-              className="group relative w-full flex justify-center py-2 px-4 btn btn-primary"
-              type="submit"
-            >
-              Reset password
-            </button>
-          </div>
-        </form>
+        <ForgotPasswordForm action={requestResetPassword} />
         <div className="flex items-center justify-between">
           <div className="text-sm">
             <Link

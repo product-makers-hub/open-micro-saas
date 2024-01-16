@@ -25,4 +25,27 @@ test.describe("Forgot Password Page", () => {
       page.getByRole("link", { name: /Return to Login/i }),
     ).toBeVisible();
   });
+
+  test("the user should be able to submit the form with a valid email", async ({
+    page,
+  }) => {
+    // arrange
+    await page.goto("/auth/forgot-password");
+    await expect(
+      page.getByText(
+        /If your email address is registered, you will receive an email with instructions on how to reset your password in a few minutes./i,
+      ),
+    ).not.toBeVisible();
+
+    // act
+    await page.getByRole("textbox", { name: /Email/i }).fill("john@mail.com");
+    await page.getByRole("button", { name: /Reset password/i }).click();
+
+    // assert
+    await expect(
+      page.getByText(
+        /If your email address is registered, you will receive an email with instructions on how to reset your password in a few minutes./i,
+      ),
+    ).toBeVisible();
+  });
 });
