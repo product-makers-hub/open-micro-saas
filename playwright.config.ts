@@ -7,7 +7,11 @@ import { normalUser } from "./tests/data/normal-user";
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+if (!process.env.CI) {
+  require("dotenv").config({
+    path: ".env.test",
+  });
+}
 
 /**
  * See https://playwright.dev/docs/test-configuration.
