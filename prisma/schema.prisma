@@ -42,6 +42,7 @@ model Session {
 model User {
   id            Int      @id @default(autoincrement())
   publicId      String   @default(uuid())
+  isActive      Boolean   @default(true)
   name          String?
   email         String?  @unique
   password      String?   

@@ -5,6 +5,7 @@ interface User {
   email: string;
   name: string;
   createdAt: Date;
+  isActive: boolean;
   role: {
     name: string;
   };
@@ -43,6 +44,7 @@ export const UsersTable = () => {
           <tr>
             <th>Email</th>
             <th>Name</th>
+            <th>Status</th>
             <th>Created at (YYYY-MM-DD)</th>
             <th>Role</th>
           </tr>
@@ -52,6 +54,7 @@ export const UsersTable = () => {
             <tr key={user.email}>
               <td>{user.email}</td>
               <td>{user.name}</td>
+              <td>{user.isActive ? "Active" : "Inactive"}</td>
               <td>
                 {user.createdAt.toLocaleString("eu", {
                   day: "2-digit",

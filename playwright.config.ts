@@ -7,9 +7,11 @@ import { normalUser } from "./tests/data/normal-user";
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
+// load .env.test only if running in local environment,
+// so prisma can use .env.test to connect to the test database
 if (!process.env.CI) {
   require("dotenv").config({
-    path: ".env.test",
+    path: "./.env.test",
   });
 }
 
@@ -124,7 +126,9 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "npm run build && npm run start",
+    // use production build for tests on CI
+    // otherwise, use the dev build (local environment)
+    command: process.env.CI ? "npm run build && npm run start" : "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
   },

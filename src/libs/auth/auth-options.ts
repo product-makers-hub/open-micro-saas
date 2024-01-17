@@ -26,6 +26,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user && userData) {
         session.user.role = { ...userData.role, id: undefined };
         session.user.publicId = userData.publicId;
+        session.user.isActive = userData.isActive;
       }
 
       return session;

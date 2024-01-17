@@ -17,6 +17,7 @@ export async function GET() {
       email: true,
       name: true,
       createdAt: true,
+      isActive: true,
       role: {
         select: {
           name: true,

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 import { normalUser } from "../../data/normal-user";
+import { USER_ROLE_NAME } from "@/consts/roles-consts";
 
 test.describe("User management", () => {
   test("admin user can navigate to user management page", async ({ page }) => {
@@ -38,11 +39,19 @@ test.describe("User management", () => {
   test("admin user can see users details", async ({ page }) => {
     await page.goto("/admin/dashboard/user-management");
 
+    const userRow = page.getByRole("row", { name: normalUser.email });
+
+    await expect(userRow).toBeVisible();
+
     await expect(
-      page.getByRole("cell", { name: normalUser.email }),
+      userRow.getByRole("cell", { name: normalUser.email }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: normalUser.name }),
+      userRow.getByRole("cell", { name: normalUser.name }),
+    ).toBeVisible();
+    await expect(userRow.getByRole("cell", { name: "Active" })).toBeVisible();
+    await expect(
+      userRow.getByRole("cell", { name: USER_ROLE_NAME, exact: true }),
     ).toBeVisible();
   });
 });
