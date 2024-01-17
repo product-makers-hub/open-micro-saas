@@ -1,7 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import prisma from "@/libs/prisma";
 import { comparePassword } from "@/libs/password-lib";
+import { getUserByEmail } from "@/repositories/user-repository";
 
 export const getCredentialsProvider = () =>
   CredentialsProvider({
@@ -34,10 +34,7 @@ export const getCredentialsProvider = () =>
 
       const { email, password } = credentials;
 
-      const user = await prisma.user.findUnique({
-        where: { email },
-        include: { role: true },
-      });
+      const user = await getUserByEmail(email);
 
       if (!user || !user?.password) {
         throw new Error("Email or password are invalid");

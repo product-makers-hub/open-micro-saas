@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { providers } from "@/libs/auth/providers/auth-providers";
 import prisma from "@/libs/prisma";
+import { getUserByEmail } from "@/repositories/user-repository";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -18,10 +19,7 @@ export const authOptions: NextAuthOptions = {
         throw new Error("Missing email");
       }
 
-      const userData = await prisma.user.findUnique({
-        where: { email: session.user.email },
-        include: { role: true },
-      });
+      const userData = await getUserByEmail(session.user.email);
 
       if (session.user && userData) {
         session.user.role = { ...userData.role, id: undefined };

@@ -1,31 +1,28 @@
 import prisma from "../../src/libs/prisma";
-import { ADMIN_ROLE_ID, USER_ROLE_ID } from "../../src/consts/roles-consts";
+import {
+  ADMIN_ROLE_ID,
+  USER_ROLE_ID,
+  ADMIN_ROLE_NAME,
+  USER_ROLE_NAME,
+} from "../../src/consts/roles-consts";
 import { hashPassword } from "../../src/libs/password-lib";
+import { createOrUpdateUser } from "../../src/repositories/user-repository";
+import { createOrUpdateRole } from "@/repositories/role-repository";
 
 export async function createAdminRoleAndUser() {
-  const roleAdmin = await prisma.role.upsert({
-    where: { id: ADMIN_ROLE_ID },
-    update: {},
-    create: {
-      id: ADMIN_ROLE_ID,
-      name: "ADMIN",
-    },
+  const roleAdmin = await createOrUpdateRole({
+    id: ADMIN_ROLE_ID,
+    name: ADMIN_ROLE_NAME,
   });
 
   console.log({ roleAdmin });
 
-  const userAdmin = await prisma.user.upsert({
-    where: { email: "admin@open-saas.com" },
-    update: {},
-    create: {
-      email: "admin@open-saas.com",
-      name: "Admin",
-      password: await hashPassword("admin"),
-      role: {
-        connect: {
-          id: roleAdmin.id,
-        },
-      },
+  const userAdmin = await createOrUpdateUser({
+    email: "admin@open-saas.com",
+    name: "Admin",
+    password: await hashPassword("admin"),
+    role: {
+      id: roleAdmin.id,
     },
   });
 
@@ -33,29 +30,19 @@ export async function createAdminRoleAndUser() {
 }
 
 export async function createNormalRoleAndUser() {
-  const roleUser = await prisma.role.upsert({
-    where: { id: USER_ROLE_ID },
-    update: {},
-    create: {
-      id: USER_ROLE_ID,
-      name: "USER",
-    },
+  const roleUser = await createOrUpdateRole({
+    id: USER_ROLE_ID,
+    name: USER_ROLE_NAME,
   });
 
   console.log({ roleUser });
 
-  const userNormal = await prisma.user.upsert({
-    where: { email: "user@open-saas.com" },
-    update: {},
-    create: {
-      email: "user@open-saas.com",
-      name: "Jimmy Doe",
-      password: await hashPassword("user"),
-      role: {
-        connect: {
-          id: roleUser.id,
-        },
-      },
+  const userNormal = await createOrUpdateUser({
+    email: "user@open-saas.com",
+    name: "Jimmy Doe",
+    password: await hashPassword("user"),
+    role: {
+      id: roleUser.id,
     },
   });
 

@@ -1,8 +1,8 @@
-import prisma from "@/libs/prisma";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/libs/auth/auth-options";
 import { ADMIN_ROLE_NAME } from "@/consts/roles-consts";
+import { getManyUsers } from "@/repositories/user-repository";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -11,20 +11,7 @@ export async function GET() {
     return Response.error();
   }
 
-  const users = await prisma.user.findMany({
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      createdAt: true,
-      isActive: true,
-      role: {
-        select: {
-          name: true,
-        },
-      },
-    },
-  });
+  const users = await getManyUsers();
 
   return Response.json({ users });
 }
