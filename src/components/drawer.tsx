@@ -36,7 +36,7 @@ export const Drawer = ({ children }: { children: React.ReactNode }) => {
           aria-label="close sidebar"
           className="drawer-overlay"
         />
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+        <ul className="menu p-4 w-60 min-h-full bg-base-200 text-base-content">
           <li>
             <Link href="/admin/dashboard">Main</Link>
           </li>
