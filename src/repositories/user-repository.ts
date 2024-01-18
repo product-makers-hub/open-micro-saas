@@ -54,3 +54,16 @@ export const getManyUsers = async () => {
     },
   });
 };
+
+export const toggleUserAccessByEmail = async (email: string) => {
+  const user = await getUserByEmail(email);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return prisma.user.update({
+    where: { email },
+    data: { isActive: !user.isActive },
+  });
+};

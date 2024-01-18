@@ -1,5 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
+
+import { ToggleUserStatus } from "./toggle-user-status";
 
 interface User {
   email: string;
@@ -60,16 +63,7 @@ export const UsersTable = () => {
           {users?.map((user) => (
             <tr key={user.email} className="hover">
               <td>
-                <div className="form-control">
-                  <label className="cursor-pointer label">
-                    <input
-                      type="checkbox"
-                      className="toggle toggle-primary"
-                      aria-label="disactive user access"
-                      defaultChecked={user.isActive}
-                    />
-                  </label>
-                </div>
+                <ToggleUserStatus isActive={user.isActive} email={user.email} />
               </td>
               <td>{user.isActive ? "Active" : "Inactive"}</td>
               <td>{user.email}</td>

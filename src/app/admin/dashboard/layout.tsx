@@ -1,6 +1,7 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import { Toaster } from "react-hot-toast";
 
 import { authOptions } from "@/libs/auth/auth-options";
 import { authConfig } from "@/config";
@@ -18,5 +19,10 @@ export default async function AdminDashboardLayout({
     redirect(authConfig.loginUrl);
   }
 
-  return <Drawer>{children}</Drawer>;
+  return (
+    <>
+      <Toaster position="bottom-right" />
+      <Drawer>{children}</Drawer>
+    </>
+  );
 }

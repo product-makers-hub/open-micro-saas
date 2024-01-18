@@ -84,4 +84,18 @@ test.describe("User management", () => {
         .getByRole("checkbox"),
     ).toBeVisible();
   });
+
+  test("admin user can toggle user access", async ({ page }) => {
+    await page.goto("/admin/dashboard/user-management");
+    await expect(page.getByText("User access was updated")).not.toBeVisible();
+
+    const userRow = page.getByRole("row", { name: normalUser.email });
+
+    await userRow
+      .getByRole("cell", { name: /disactive user access/i })
+      .getByRole("checkbox")
+      .click();
+
+    await expect(page.getByText("User access was updated")).toBeVisible();
+  });
 });
