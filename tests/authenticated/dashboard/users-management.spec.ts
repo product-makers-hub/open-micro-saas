@@ -30,10 +30,26 @@ test.describe("User management", () => {
   test("admin user can see table headers", async ({ page }) => {
     await page.goto("/admin/dashboard/user-management");
 
-    await expect(page.getByRole("cell", { name: /email/i })).toBeVisible();
-    await expect(page.getByRole("cell", { name: /name/i })).toBeVisible();
-    await expect(page.getByRole("cell", { name: /created at/i })).toBeVisible();
-    await expect(page.getByRole("cell", { name: /role/i })).toBeVisible();
+    const tableHeaders = page.getByRole("row").first();
+
+    await expect(
+      tableHeaders.getByRole("cell", { name: /email/i }),
+    ).toBeVisible();
+    await expect(
+      tableHeaders.getByRole("cell", { name: /name/i }),
+    ).toBeVisible();
+    await expect(
+      tableHeaders.getByRole("cell", { name: /status/i }),
+    ).toBeVisible();
+    await expect(
+      tableHeaders.getByRole("cell", { name: /created at/i }),
+    ).toBeVisible();
+    await expect(
+      tableHeaders.getByRole("cell", { name: /role/i }),
+    ).toBeVisible();
+    await expect(
+      tableHeaders.getByRole("cell", { name: /access/i }),
+    ).toBeVisible();
   });
 
   test("admin user can see users details", async ({ page }) => {
@@ -49,9 +65,23 @@ test.describe("User management", () => {
     await expect(
       userRow.getByRole("cell", { name: normalUser.name }),
     ).toBeVisible();
-    await expect(userRow.getByRole("cell", { name: "Active" })).toBeVisible();
+    await expect(
+      userRow.getByRole("cell", { name: "Active", exact: true }),
+    ).toBeVisible();
     await expect(
       userRow.getByRole("cell", { name: USER_ROLE_NAME, exact: true }),
+    ).toBeVisible();
+  });
+
+  test("admin user can see the access toggle element", async ({ page }) => {
+    await page.goto("/admin/dashboard/user-management");
+
+    const userRow = page.getByRole("row", { name: normalUser.email });
+
+    await expect(
+      userRow
+        .getByRole("cell", { name: /disactive user access/i })
+        .getByRole("checkbox"),
     ).toBeVisible();
   });
 });
