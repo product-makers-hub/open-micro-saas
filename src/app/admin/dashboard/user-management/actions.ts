@@ -1,6 +1,14 @@
 "use server";
 
-import { toggleUserAccessByEmail } from "@/repositories/user-repository";
+import {
+  toggleUserAccessByEmail,
+  getManyUsers,
+} from "@/repositories/user-repository";
+
+export const getUsersAction = async () => {
+  const users = await getManyUsers();
+  return users;
+};
 
 export const toggleUserAccessAction = async (
   prevState: any,

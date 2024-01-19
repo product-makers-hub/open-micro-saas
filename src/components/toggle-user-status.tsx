@@ -1,6 +1,9 @@
+"use client";
+
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 import { toggleUserAccessAction } from "@/app/admin/dashboard/user-management/actions";
 
@@ -18,6 +21,7 @@ export const ToggleUserStatus = ({
   isActive,
   email,
 }: ToggleUserStatusProps) => {
+  const router = useRouter();
   const [state, action] = useFormState(toggleUserAccessAction, initialState);
 
   const handleToggleUserAccess = async () => {
@@ -29,8 +33,9 @@ export const ToggleUserStatus = ({
   useEffect(() => {
     if (state?.message) {
       toast[state.error ? "error" : "success"](state.message);
+      router.refresh();
     }
-  }, [state]);
+  }, [router, state]);
 
   return (
     <div className="form-control">

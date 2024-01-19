@@ -52,6 +52,9 @@ export const getManyUsers = async () => {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 };
 
