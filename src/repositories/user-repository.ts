@@ -4,6 +4,7 @@ interface User {
   email: string;
   name: string;
   password: string;
+  isActive?: boolean;
   role: {
     id: number;
   };
@@ -21,6 +22,7 @@ export const createOrUpdateUser = async ({
   name,
   password,
   role,
+  isActive = true,
 }: User) => {
   return await prisma.user.upsert({
     where: { email: email },
@@ -29,6 +31,7 @@ export const createOrUpdateUser = async ({
       email,
       name,
       password,
+      isActive,
       role: {
         connect: {
           id: role.id,

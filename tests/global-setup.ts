@@ -5,7 +5,7 @@ import { normalUser } from "./data/normal-user";
 import { truncateDb } from "../prisma/truncate-db";
 import {
   createAdminRoleAndUser,
-  createNormalRoleAndUser,
+  createNormalRoleAndUsers,
 } from "../prisma/seeds/seed";
 
 // clean up database before everything.
@@ -42,7 +42,7 @@ setup("let the admin user login with email and password", async ({ page }) => {
 
 setup("let a normal user login with email and password", async ({ page }) => {
   // arrange
-  await createNormalRoleAndUser();
+  await createNormalRoleAndUsers();
   await page.goto(normalUser.loginUrl);
   await expect(page.getByRole("link", { name: /Login/i })).toBeVisible();
 

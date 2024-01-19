@@ -29,6 +29,21 @@ export const authOptions: NextAuthOptions = {
 
       return session;
     },
+    async signIn({ user }) {
+      if (!user?.email) {
+        return false;
+      }
+
+      const userData = await getUserByEmail(user.email);
+
+      if (!userData?.isActive) {
+        throw new Error(
+          "This user has been deactivated. Please contact support.",
+        );
+      }
+
+      return true;
+    },
   },
   debug: false,
 };

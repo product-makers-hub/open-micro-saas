@@ -55,7 +55,10 @@ test.describe("User management", () => {
   test("admin user can see users details", async ({ page }) => {
     await page.goto("/admin/dashboard/user-management");
 
-    const userRow = page.getByRole("row", { name: normalUser.email });
+    const userRow = page.getByRole("row", {
+      name: normalUser.email,
+      exact: true,
+    });
 
     await expect(userRow).toBeVisible();
 
@@ -76,7 +79,10 @@ test.describe("User management", () => {
   test("admin user can see the access toggle element", async ({ page }) => {
     await page.goto("/admin/dashboard/user-management");
 
-    const userRow = page.getByRole("row", { name: normalUser.email });
+    const userRow = page.getByRole("row", {
+      name: normalUser.email,
+      exact: true,
+    });
 
     await expect(
       userRow
@@ -89,7 +95,10 @@ test.describe("User management", () => {
     await page.goto("/admin/dashboard/user-management");
     await expect(page.getByText("User access was updated")).not.toBeVisible();
 
-    const userRow = page.getByRole("row", { name: normalUser.email });
+    const userRow = page.getByRole("row", {
+      name: normalUser.email,
+      exact: true,
+    });
 
     await userRow
       .getByRole("cell", { name: /disactive user access/i })

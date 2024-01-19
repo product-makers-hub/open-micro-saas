@@ -26,7 +26,11 @@ export const UsersTable = async () => {
         </thead>
         <tbody>
           {users?.map((user) => (
-            <tr key={user.email} className="hover">
+            <tr
+              key={user.email}
+              className="hover"
+              aria-label={user.email as string}
+            >
               <td>
                 <ToggleUserStatus
                   isActive={user.isActive}

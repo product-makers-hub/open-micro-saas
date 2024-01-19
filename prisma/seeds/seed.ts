@@ -7,7 +7,8 @@ import {
 } from "../../src/consts/roles-consts";
 import { hashPassword } from "../../src/libs/password-lib";
 import { createOrUpdateUser } from "../../src/repositories/user-repository";
-import { createOrUpdateRole } from "@/repositories/role-repository";
+import { createOrUpdateRole } from "../../src/repositories/role-repository";
+import { inactiveUser as inactiveUserData } from "../../tests/data/inactive-user";
 
 export async function createAdminRoleAndUser() {
   const roleAdmin = await createOrUpdateRole({
@@ -29,7 +30,7 @@ export async function createAdminRoleAndUser() {
   console.log({ userAdmin: { ...userAdmin, password: undefined } });
 }
 
-export async function createNormalRoleAndUser() {
+export async function createNormalRoleAndUsers() {
   const roleUser = await createOrUpdateRole({
     id: USER_ROLE_ID,
     name: USER_ROLE_NAME,
@@ -47,11 +48,23 @@ export async function createNormalRoleAndUser() {
   });
 
   console.log({ userNormal: { ...userNormal, password: undefined } });
+
+  const inactiveUser = await createOrUpdateUser({
+    email: inactiveUserData.email,
+    name: inactiveUserData.name,
+    password: await hashPassword(inactiveUserData.plainPassword),
+    isActive: false,
+    role: {
+      id: USER_ROLE_ID,
+    },
+  });
+
+  console.log({ inactiveUser: { ...inactiveUser, password: undefined } });
 }
 
 async function main() {
   await createAdminRoleAndUser();
-  await createNormalRoleAndUser();
+  await createNormalRoleAndUsers();
 }
 
 if (require.main === module) {
