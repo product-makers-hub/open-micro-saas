@@ -2,20 +2,11 @@
 
 Open SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter kit designed to help you launch your SaaS applications faster and more efficiently. It's packed with essential features like user authentication, a billing system, and a customizable dashboard.
 
-## Tech Stack
+---
 
-This project uses the next tech stack:
+⚠️ This project is still in progress but **`I'm actively working on it 👨‍💻`**.
 
-- [Next.js](https://nextjs.org/).
-- [Next auth](https://next-auth.js.org/).
-- [Eslint](https://eslint.org/).
-- [Prettier](https://prettier.io/).
-- [Prisma](https://www.prisma.io/).
-- [Tailwind CSS](https://tailwindcss.com/).
-- [PostgreSQL](https://www.postgresql.org/).
-- [Stripe](https://stripe.com/).
-- [Playwright](https://playwright.dev/).
-- [Github Actions](https://github.com/features/actions).
+---
 
 ## Why Open SaaS?
 
@@ -33,13 +24,28 @@ It's crafted to streamline development, ensuring scalable, maintainable, and fut
 
 Of course, there is always room for improvement, so feel free to open an issue or a pull request if you have any suggestions.
 
+## Tech Stack
+
+This project uses the next tech stack:
+
+- [Next.js](https://nextjs.org/).
+- [Next auth](https://next-auth.js.org/).
+- [Eslint](https://eslint.org/).
+- [Prettier](https://prettier.io/).
+- [Prisma](https://www.prisma.io/).
+- [Tailwind CSS](https://tailwindcss.com/).
+- [PostgreSQL](https://www.postgresql.org/).
+- [Stripe](https://stripe.com/).
+- [Playwright](https://playwright.dev/).
+- [Github Actions](https://github.com/features/actions).
+
 ## Features
 
 The Open SaaS starter kit comes with the following features:
 
 - **Authentication System**: Integrated OAuth and traditional email/password sign-up and login methods (In proggress).
-- **User Management**: Admin panel for managing users and roles (TODO).
-- **Dynamic Configuration**: Admin panel for easy customization of SaaS settings (TODO).
+- **User Management**: Admin panel for managing users and roles (In progress).
+- **Dynamic Configuration**: Configuration files for easy customization of SaaS settings (TODO).
 - **Billing and Subscription Management**: Integrated with popular payment gateways for handling different subscription plans (TODO).
 - **Responsive UI**: A modern, mobile-responsive user interface (In proggress).
 
@@ -49,9 +55,9 @@ Feel free to suggest new features by opening an issue.
 
 You will need the following to run this project:
 
-- Node.js (v18 or newer)
-- A PostgreSQL database
-- Docker
+- Node.js (v18 or newer).
+- A PostgreSQL database.
+- Docker.
 
 ## Getting Started
 
@@ -111,13 +117,21 @@ For more information on how to write tests in Next.js with this tool, see [Next.
 
 The tests are located in the `tests` folder, and are a crucial part of the project. Please make sure that you write tests for any new feature that you add to the project.
 
-You need a test database to run the tests. To create it, you only need to run the following command having Docker running:
+You need a test database to run the tests. Follow the next stepts (first time only):
+
+1. Create the test database in Docker:
 
 ```bash
 npm run test:db:compose
 ```
 
-And that's it. You can now run the tests with the following command:
+2. Run the migrations. You have the database created, but you need to create the tables. For that, you need to run the migrations:
+
+```bash
+npm run test:db:prepare
+```
+
+3. Run the tests. You can now run the tests with the following command:
 
 ```bash
 npm run test
@@ -130,6 +144,8 @@ npm run test:ui
 ```
 
 This will open a browser window where you can see the tests running.
+
+Note: If you create a new migration in development, you need to run the migrations in the test database too.
 
 ## Usage
 
