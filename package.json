@@ -26,6 +26,7 @@
     "@auth/prisma-adapter": "^1.0.12",
     "@prisma/client": "^5.7.1",
     "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
     "react": "^18",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@playwright/test": "^1.40.1",
     "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

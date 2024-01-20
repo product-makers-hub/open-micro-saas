@@ -17,6 +17,12 @@ export const getUserByEmail = async (email: string) => {
   });
 };
 
+export const getUserByUid = async (uid: string) => {
+  return await prisma.user.findUnique({
+    where: { publicId: uid },
+  });
+};
+
 export const createOrUpdateUser = async ({
   email,
   name,
@@ -71,5 +77,17 @@ export const toggleUserAccessByEmail = async (email: string) => {
   return prisma.user.update({
     where: { email },
     data: { isActive: !user.isActive },
+  });
+};
+
+export const updateUserPasswordByEmail = async (
+  email: string,
+  password: string,
+) => {
+  return await prisma.user.update({
+    where: { email },
+    data: {
+      password,
+    },
   });
 };

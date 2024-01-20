@@ -41,8 +41,8 @@ model Session {
 
 model User {
   id            Int      @id @default(autoincrement())
-  publicId      String   @default(uuid())
-  isActive      Boolean   @default(true)
+  publicId      String   @default(uuid()) @unique
+  isActive      Boolean  @default(true)
   name          String?
   email         String?  @unique
   password      String?   
@@ -57,7 +57,7 @@ model User {
 
 model Role {
   id        Int   @id @default(autoincrement())
-  publicId  String   @default(uuid())
+  publicId  String   @default(uuid()) @unique
   name      String   @unique
   users     User[]
 }
