@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 
 import { useAuth } from "@/hooks/use-auth";
 import { UserDropdown } from "./user-dropdown";
 
 export const Navbar = () => {
-  const { status, user } = useAuth();
+  const { status } = useAuth();
 
   return (
     <nav className="navbar bg-base-300">
@@ -23,9 +22,7 @@ export const Navbar = () => {
               Login
             </Link>
           )}
-          {status === "authenticated" && (
-            <UserDropdown user={user} onSignOut={() => signOut()} />
-          )}
+          {status === "authenticated" && <UserDropdown />}
         </div>
       </div>
     </nav>

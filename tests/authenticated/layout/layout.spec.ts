@@ -28,6 +28,9 @@ test.describe("General layout", () => {
 
     await page.getByRole("button", { name: /user profile avatar/i }).click();
 
+    await expect(
+      page.getByRole("link", { name: /admin dashboard/i }),
+    ).toBeVisible();
     await expect(page.getByRole("link", { name: /profile/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /logout/i })).toBeVisible();
   });

@@ -1,13 +1,15 @@
+"use client";
+
 import NextImage from "next/image";
 import Link from "next/link";
-import type { DefaultSession } from "next-auth";
+import { signOut } from "next-auth/react";
 
-interface UserDropdownProps {
-  user: DefaultSession["user"];
-  onSignOut: () => void;
-}
+import { useAuth } from "@/hooks/use-auth";
+import { ADMIN_ROLE_NAME } from "@/consts/roles-consts";
 
-export const UserDropdown = ({ user, onSignOut }: UserDropdownProps) => {
+export const UserDropdown = () => {
+  const { user } = useAuth();
+
   return (
     <div className="dropdown dropdown-end">
       <div
@@ -49,13 +51,20 @@ export const UserDropdown = ({ user, onSignOut }: UserDropdownProps) => {
         aria-labelledby="user menu"
         className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
       >
+        {user?.role.name === ADMIN_ROLE_NAME && (
+          <li>
+            <Link href="/admin/dashboard" className="justify-between">
+              Admin Dashboard
+            </Link>
+          </li>
+        )}
         <li>
           <Link href="/profile" className="justify-between">
             Profile
           </Link>
         </li>
         <li>
-          <button onClick={onSignOut}>Logout</button>
+          <button onClick={() => signOut()}>Logout</button>
         </li>
       </ul>
     </div>
