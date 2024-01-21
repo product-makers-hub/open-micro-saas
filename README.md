@@ -1,6 +1,6 @@
-# Open SaaS
+# Next.js SaaS
 
-Open SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter kit designed to help you launch your SaaS applications faster and more efficiently. It's packed with essential features like user authentication, a billing system, and a customizable dashboard.
+Next.js SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter kit designed to help you launch your SaaS applications faster and more efficiently. It's packed with essential features like user authentication, a billing system, and an admin dashboard.
 
 ---
 
@@ -8,9 +8,9 @@ Open SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter 
 
 ---
 
-## Why Open SaaS?
+## Why Next.js SaaS?
 
-Open SaaS stands apart with its **exceptional code quality**, adherence to the latest industry best practices, and a user-friendly design for effortless updates.
+Next.js SaaS stands apart with its **exceptional code quality**, adherence to the latest industry best practices, and a user-friendly design for effortless updates.
 
 - ✅ Static analysis tools like ESLint and Prettier are integrated into the project to ensure consistent code quality a format.
 - ✅ TypeScript, which provides a better type safety and fewer bugs.
@@ -41,7 +41,7 @@ This project uses the next tech stack:
 
 ## Features
 
-The Open SaaS starter kit comes with the following features:
+The Next.js SaaS starter kit comes with the following features:
 
 - **Authentication System**: Integrated OAuth and traditional email/password sign-up and login methods (In proggress).
 - **User Management**: Admin panel for managing users and roles (In progress).
