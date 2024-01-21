@@ -17,6 +17,9 @@ export const Navbar = () => {
       </div>
       <div className="flex-none">
         <div>
+          {status === "loading" && (
+            <span className="loading loading-spinner loading-sm" />
+          )}
           {status === "unauthenticated" && (
             <Link href="/auth/login" className="btn">
               Login
