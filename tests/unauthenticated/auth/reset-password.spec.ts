@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
 
+import { encodeUserData } from "@/libs/encode-user-data";
+import { normalUser } from "../../data/normal-user";
+import { getUserByEmail } from "@/repositories/user-repository";
+
 test.describe("Reset Password", () => {
   test("the reset password page should be accessible", async ({ page }) => {
     await page.goto("/auth/reset-password/token");
@@ -30,5 +34,40 @@ test.describe("Reset Password", () => {
     await expect(
       page.getByRole("link", { name: /return to login/i }),
     ).toBeVisible();
+  });
+
+  test("should show an error when the token is invalid", async ({ page }) => {
+    // arrange
+    const expectedMessage =
+      "The reset password link has expired. Please request a new one";
+    await page.goto("/auth/reset-password/invalid-token");
+    await expect(page.getByText(expectedMessage)).not.toBeVisible();
+
+    // act
+    await page.getByRole("textbox", { name: /password/i }).fill("new-password");
+    await page.getByRole("button", { name: /reset password/i }).click();
+
+    // assert
+    await expect(page.getByText(expectedMessage)).toBeVisible();
+  });
+
+  test("should show a success message when the password is updated", async ({
+    page,
+  }) => {
+    // arrange
+    const expectedMessage = "Password updated";
+    const normalUserData = await getUserByEmail(normalUser.email);
+    const token = encodeUserData({ uid: normalUserData?.publicId as string });
+    await page.goto(`/auth/reset-password/${token}`);
+    await expect(page.getByText(expectedMessage)).not.toBeVisible();
+
+    // act
+    await page
+      .getByRole("textbox", { name: /password/i })
+      .fill(normalUser.plainPassword);
+    await page.getByRole("button", { name: /reset password/i }).click();
+
+    // assert
+    await expect(page.getByText(expectedMessage)).toBeVisible();
   });
 });

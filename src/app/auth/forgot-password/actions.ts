@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserByEmail } from "@/repositories/user-repository";
-import { encodeToken } from "@/libs/jwt";
+import { encodeUserData } from "@/libs/encode-user-data";
 import { sendEmail } from "@/libs/mailgun";
 
 interface PrevState {
@@ -29,7 +29,7 @@ export const requestResetPassword = async (
     return defaultResponse;
   }
 
-  const token = encodeToken({
+  const token = encodeUserData({
     uid: user.publicId,
   });
 
