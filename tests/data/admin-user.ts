@@ -1,7 +1,7 @@
 import { authConfig } from "@/config";
 
 export const adminUser = {
-  email: "admin@open-saas.com",
+  email: "admin@my-saas.com",
   name: "Admin",
   plainPassword: "admin",
   appUrl: authConfig.adminUserCallbackUrl,

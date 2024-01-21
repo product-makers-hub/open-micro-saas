@@ -19,7 +19,7 @@ export async function createAdminRoleAndUser() {
   console.log({ roleAdmin });
 
   const userAdmin = await createOrUpdateUser({
-    email: "admin@open-saas.com",
+    email: "admin@my-saas.com",
     name: "Admin",
     password: await hashPassword("admin"),
     role: {
@@ -39,7 +39,7 @@ export async function createNormalRoleAndUsers() {
   console.log({ roleUser });
 
   const userNormal = await createOrUpdateUser({
-    email: "user@open-saas.com",
+    email: "user@my-saas.com",
     name: "Jimmy Doe",
     password: await hashPassword("user"),
     role: {

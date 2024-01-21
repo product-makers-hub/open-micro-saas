@@ -65,11 +65,11 @@ You will need the following to run this project:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/product-makers-hub/open-saas.git
+   git clone https://github.com/product-makers-hub/nextjs-saas.git
    ```
 2. Install dependencies:
    ```bash
-   cd Open-SaaS
+   cd nextjs-saas
    npm install
    ```
 3. Set up your `.env` file based on the provided `.env.example`.
