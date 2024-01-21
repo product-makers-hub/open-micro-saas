@@ -3,3 +3,8 @@ export const authConfig = {
   normalUserCallbackUrl: "/dashboard",
   adminUserCallbackUrl: "/admin/dashboard",
 };
+
+export const mailConfig = {
+  fromAdmin: "Juan Correa <mailgun@sandbox-123.mailgun.org>",
+  domain: "sandbox-123.mailgun.org",
+};

@@ -2,6 +2,7 @@
 
 import { getUserByEmail } from "@/repositories/user-repository";
 import { encodeToken } from "@/libs/jwt";
+import { sendEmail } from "@/libs/mailgun";
 
 interface PrevState {
   message: string;
@@ -24,7 +25,7 @@ export const requestResetPassword = async (
 
   const user = await getUserByEmail(email.toString());
 
-  if (!user) {
+  if (!user || !user.email || !user.password) {
     return defaultResponse;
   }
 
@@ -33,9 +34,15 @@ export const requestResetPassword = async (
   });
 
   const link = `${process.env.NEXTAUTH_URL}auth/reset-password/${token}`;
-  console.log(link);
 
-  // TODO: Send email with reset password link
+  await sendEmail({
+    to: user.email,
+    subject: "Reset your password",
+    html: `
+      <h1>Reset your password</h1>
+      <p>Click <a href="${link}">here</a> to reset your password.</p>
+    `,
+  });
 
   return defaultResponse;
 };
