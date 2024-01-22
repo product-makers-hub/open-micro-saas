@@ -54,9 +54,10 @@ This project uses the next tech stack:
 The Open Micro SaaS starter kit comes with the following features:
 
 - **Authentication System**: Integrated OAuth and traditional email/password sign-up and login methods (Done).
-- **User Management**: Admin panel for managing users and roles (In progress).
+- **User Management**: Admin panel for managing users and roles (Done).
 - **Dynamic Configuration**: Configuration files for easy customization of SaaS settings (In progress).
 - **Billing and Subscription Management**: Integrated with popular payment gateways for handling different subscription plans (TODO).
+- **Landing page**: A landing page for your SaaS application (In progress).
 - **Responsive UI**: A modern, mobile-responsive user interface (In proggress).
 
 You want more? Feel free to suggest new features by opening an issue.

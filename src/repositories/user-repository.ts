@@ -1,5 +1,7 @@
 import prisma from "@/libs/prisma";
 
+import { UserRole } from "@/consts/roles-consts";
+
 interface User {
   email: string;
   name: string;
@@ -92,15 +94,20 @@ export const updateUserPasswordByEmail = async (
   });
 };
 
-export const updateUserRoleByEmail = async (email: string, role: string) => {
-  return await prisma.user.update({
-    where: { email },
-    data: {
-      role: {
-        connect: {
-          name: role,
+export const updateUserRoleByEmail = async (email: string, role: UserRole) => {
+  try {
+    return await prisma.user.update({
+      where: { email },
+      data: {
+        role: {
+          connect: {
+            name: role,
+          },
         },
       },
-    },
-  });
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update user role");
+  }
 };

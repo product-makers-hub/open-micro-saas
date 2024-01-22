@@ -1,23 +1,23 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 
-import { authOptions } from "@/libs/auth/auth-options";
 import { authConfig } from "@/config";
-import { ADMIN_ROLE_NAME } from "@/consts/roles-consts";
+import { getIsAuth, getIsAdmin } from "@/libs/auth/auth-utils";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const isAuth = await getIsAuth();
 
-  if (!session) {
+  if (!isAuth) {
     redirect(authConfig.loginUrl);
   }
 
-  if (session.user.role.name === ADMIN_ROLE_NAME) {
+  const isAdmin = await getIsAdmin();
+
+  if (isAdmin) {
     redirect(authConfig.adminUserCallbackUrl);
   }
 

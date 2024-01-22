@@ -5,6 +5,7 @@ import {
   getManyUsers,
   updateUserRoleByEmail,
 } from "@/repositories/user-repository";
+import { UserRole } from "@/consts/roles-consts";
 
 export const getUsersAction = async () => {
   const users = await getManyUsers();
@@ -56,7 +57,10 @@ export const updateUserRoleAction = async (
   }
 
   try {
-    await updateUserRoleByEmail(email.toString(), roleToUpdate.toString());
+    await updateUserRoleByEmail(
+      email.toString(),
+      roleToUpdate.toString() as UserRole,
+    );
 
     return {
       message: "User role was updated",
