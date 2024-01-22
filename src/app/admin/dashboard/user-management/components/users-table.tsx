@@ -1,7 +1,7 @@
 import { getUsersAction } from "@/app/admin/dashboard/user-management/actions";
 
 import { ToggleUserStatus } from "./toggle-user-status";
-import { SelectRole } from "@/app/admin/dashboard/user-management/components/select-role";
+import { SelectRole } from "./select-role";
 
 const tableHeaders = [
   "Access",
