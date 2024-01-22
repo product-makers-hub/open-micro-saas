@@ -1,6 +1,7 @@
 import { getUsersAction } from "@/app/admin/dashboard/user-management/actions";
 
 import { ToggleUserStatus } from "./toggle-user-status";
+import { SelectRole } from "@/app/admin/dashboard/user-management/components/select-role";
 
 const tableHeaders = [
   "Access",
@@ -40,7 +41,9 @@ export const UsersTable = async () => {
               <td>{user.isActive ? "Active" : "Inactive"}</td>
               <td>{user.email}</td>
               <td>{user.name}</td>
-              <td>{user.role.name}</td>
+              <td aria-label={user.role.name}>
+                <SelectRole userRoleName={user.role.name} />
+              </td>
               <td>
                 {user.createdAt.toLocaleString("eu", {
                   day: "2-digit",

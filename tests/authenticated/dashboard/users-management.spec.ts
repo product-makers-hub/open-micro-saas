@@ -107,4 +107,19 @@ test.describe("User management", () => {
 
     await expect(page.getByText("User access was updated")).toBeVisible();
   });
+
+  test("admin user can see the user role select element", async ({ page }) => {
+    await page.goto("/admin/dashboard/user-management");
+
+    const userRow = page.getByRole("row", {
+      name: normalUser.email,
+      exact: true,
+    });
+
+    const userRoleSelect = userRow
+      .getByRole("cell", { name: USER_ROLE_NAME })
+      .getByRole("combobox");
+
+    await expect(userRoleSelect).toBeVisible();
+  });
 });
