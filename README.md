@@ -1,6 +1,6 @@
-# Next.js SaaS
+# Open Micro Saas, the Next.js SaaS toolkit
 
-Next.js SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter kit designed to help you launch your SaaS applications faster and more efficiently. It's packed with essential features like user authentication, a billing system, and an admin dashboard.
+Open Micro SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter kit designed to help you launch your SaaS applications faster and more efficiently. It's packed with essential features like user authentication, a billing system, and an admin dashboard.
 
 ---
 
@@ -8,11 +8,13 @@ Next.js SaaS is an open-source, Next.js-based Software as a Service (SaaS) start
 
 ---
 
-## Why Next.js SaaS?
+## Why Open Micro SaaS?
 
-Next.js SaaS stands apart with its **exceptional code quality**, adherence to the latest industry best practices, and a user-friendly design for effortless updates.
+Here are five reasons why Open Micro SaaS stands apart from other SaaS starter kits:
 
-- ✅ Static analysis tools like ESLint and Prettier are integrated into the project to ensure consistent code quality a format.
+1. Its **exceptional code quality**, adherence to the latest industry best practices, and a user-friendly design for effortless updates, like:
+
+- ✅ Static analysis tools (ESLint and Prettier) are integrated into the project to ensure consistent code quality a format.
 - ✅ TypeScript, which provides a better type safety and fewer bugs.
 - ✅ Tailwind CSS and DaisyUI, which provides a easier way to customize the UI.
 - ✅ Playwright, which provides a better way to write integration tests.
@@ -24,11 +26,19 @@ It's crafted to streamline development, ensuring scalable, maintainable, and fut
 
 Of course, there is always room for improvement, so feel free to open an issue or a pull request if you have any suggestions.
 
+2. Its **open-source license**. You can use this project for free, even in commercial projects. You can also modify it as you wish, and use it as a base for your own projects. Please don't forget to give credit to the original author.
+
+3. Its **extensive documentation**. The project comes with a detailed README file, and the code is thoroughly documented.
+
+4. Its marketing and business focus. The project is designed to help you launch your SaaS application faster and more efficiently. It's packed with essential features like user authentication, a billing system, and an admin dashboard.
+
+5. Its **Analytics and SEO** focus. The project is designed to help you track your users and improve your SEO. It's packed with essential features like Google Analytics.
+
 ## Tech Stack
 
 This project uses the next tech stack:
 
-- [Next.js](https://nextjs.org/).
+- [Next.js (V.14)](https://nextjs.org/).
 - [Next auth](https://next-auth.js.org/).
 - [Eslint](https://eslint.org/).
 - [Prettier](https://prettier.io/).
@@ -41,15 +51,15 @@ This project uses the next tech stack:
 
 ## Features
 
-The Next.js SaaS starter kit comes with the following features:
+The Open Micro SaaS starter kit comes with the following features:
 
-- **Authentication System**: Integrated OAuth and traditional email/password sign-up and login methods (In proggress).
+- **Authentication System**: Integrated OAuth and traditional email/password sign-up and login methods (Done).
 - **User Management**: Admin panel for managing users and roles (In progress).
-- **Dynamic Configuration**: Configuration files for easy customization of SaaS settings (TODO).
+- **Dynamic Configuration**: Configuration files for easy customization of SaaS settings (In progress).
 - **Billing and Subscription Management**: Integrated with popular payment gateways for handling different subscription plans (TODO).
 - **Responsive UI**: A modern, mobile-responsive user interface (In proggress).
 
-Feel free to suggest new features by opening an issue.
+You want more? Feel free to suggest new features by opening an issue.
 
 ### Prerequisites
 
@@ -65,11 +75,11 @@ You will need the following to run this project:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/product-makers-hub/nextjs-saas.git
+   git clone https://github.com/product-makers-hub/open-micro-saas.git
    ```
 2. Install dependencies:
    ```bash
-   cd nextjs-saas
+   cd open-micro-saas
    npm install
    ```
 3. Set up your `.env` file based on the provided `.env.example`.
