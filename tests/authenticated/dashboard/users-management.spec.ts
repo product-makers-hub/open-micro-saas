@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 import { normalUser } from "../../data/normal-user";
-import { USER_ROLE_NAME } from "@/consts/roles-consts";
+import { inactiveUser } from "../../data/inactive-user";
+import { ADMIN_ROLE_NAME, USER_ROLE_NAME } from "@/consts/roles-consts";
 
 test.describe("User management", () => {
   test("admin user can navigate to user management page", async ({ page }) => {
@@ -121,5 +122,24 @@ test.describe("User management", () => {
       .getByRole("combobox");
 
     await expect(userRoleSelect).toBeVisible();
+  });
+
+  test("admin user can update user role", async ({ page }) => {
+    await page.goto("/admin/dashboard/user-management");
+    await expect(page.getByText("User role was updated")).not.toBeVisible();
+
+    // using inactive user in order to avoid conflicts with other tests
+    const userRow = page.getByRole("row", {
+      name: inactiveUser.email,
+      exact: true,
+    });
+
+    const userRoleSelect = userRow
+      .getByRole("cell", { name: USER_ROLE_NAME })
+      .getByRole("combobox");
+
+    await userRoleSelect.selectOption({ label: ADMIN_ROLE_NAME });
+
+    await expect(page.getByText("User role was updated")).toBeVisible();
   });
 });

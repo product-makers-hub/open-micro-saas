@@ -42,7 +42,10 @@ export const UsersTable = async () => {
               <td>{user.email}</td>
               <td>{user.name}</td>
               <td aria-label={user.role.name}>
-                <SelectRole userRoleName={user.role.name} />
+                <SelectRole
+                  userRoleName={user.role.name}
+                  email={user.email as string}
+                />
               </td>
               <td>
                 {user.createdAt.toLocaleString("eu", {

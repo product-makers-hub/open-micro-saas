@@ -91,3 +91,16 @@ export const updateUserPasswordByEmail = async (
     },
   });
 };
+
+export const updateUserRoleByEmail = async (email: string, role: string) => {
+  return await prisma.user.update({
+    where: { email },
+    data: {
+      role: {
+        connect: {
+          name: role,
+        },
+      },
+    },
+  });
+};

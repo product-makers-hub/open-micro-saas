@@ -3,6 +3,7 @@
 import {
   toggleUserAccessByEmail,
   getManyUsers,
+  updateUserRoleByEmail,
 } from "@/repositories/user-repository";
 
 export const getUsersAction = async () => {
@@ -28,6 +29,37 @@ export const toggleUserAccessAction = async (
 
     return {
       message: "User access was updated",
+      error: false,
+    };
+  } catch (e) {
+    console.error(e);
+
+    return {
+      message: "Something went wrong",
+      error: true,
+    };
+  }
+};
+
+export const updateUserRoleAction = async (
+  prevState: any,
+  formData: FormData,
+) => {
+  const email = formData.get("email");
+  const roleToUpdate = formData.get("roleToUpdate");
+
+  if (!email || !roleToUpdate) {
+    return {
+      message: "User public id and role are required",
+      error: true,
+    };
+  }
+
+  try {
+    await updateUserRoleByEmail(email.toString(), roleToUpdate.toString());
+
+    return {
+      message: "User role was updated",
       error: false,
     };
   } catch (e) {
