@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("General layout", () => {
+test.describe("General authenticated layout", () => {
   test("should display the header", async ({ page }) => {
     await page.goto("/");
 
@@ -12,6 +12,14 @@ test.describe("General layout", () => {
 
     await expect(
       page.getByRole("navigation").getByRole("link", { name: /open saas/i }),
+    ).toBeVisible();
+  });
+
+  test("should display the theme toggle element", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(
+      page.getByRole("checkbox", { name: /toggle theme/i }),
     ).toBeVisible();
   });
 

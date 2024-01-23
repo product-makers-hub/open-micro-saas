@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useAuth } from "@/hooks/use-auth";
 import { UserDropdown } from "./user-dropdown";
+import { ThemeToggle } from "./theme-toggle";
 
 export const Navbar = () => {
   const { status } = useAuth();
@@ -16,6 +17,9 @@ export const Navbar = () => {
         </Link>
       </div>
       <div className="flex-none">
+        <div className="px-2">
+          <ThemeToggle />
+        </div>
         <div>
           {status === "loading" && (
             <span className="loading loading-spinner loading-sm" />
