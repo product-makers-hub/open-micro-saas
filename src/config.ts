@@ -14,6 +14,21 @@ export const siteMetadata = {
   description: "Crafted for Developers, Open for Business",
 };
 
+export const publicNavLinks = [
+  {
+    title: "Pricing",
+    url: "/pricing",
+  },
+  {
+    title: "Features",
+    url: "/features",
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+  },
+];
+
 export const landingPageContent = {
   heroSection: {
     headline: "Lorem Ipsum Dolor Sit Amet",
