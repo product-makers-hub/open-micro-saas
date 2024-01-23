@@ -5,15 +5,16 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { UserDropdown } from "./user-dropdown";
 import { ThemeToggle } from "./theme-toggle";
+import { siteMetadata } from "@/config";
 
 export const Navbar = () => {
   const { status } = useAuth();
 
   return (
-    <nav className="navbar bg-base-300">
+    <nav className="navbar bg-base-300" aria-label="main navbar">
       <div className="flex-1">
         <Link href="/" className="btn btn-ghost text-xl">
-          Open SaaS
+          {siteMetadata.title}
         </Link>
       </div>
       <div className="flex-none">
