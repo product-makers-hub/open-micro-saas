@@ -1,6 +1,31 @@
+"use client";
+
 import { paymentsConfig } from "@/config";
 
+import { createCheckoutSession } from "@/app/pricing/actions";
+import { formatAmountForDisplay } from "@/libs/stripe/stripe-helpers";
+
 export const Pricing = () => {
+  const handleCheckout = async ({
+    priceId,
+    planName,
+    amount,
+  }: {
+    priceId: string;
+    planName: string;
+    amount: number;
+  }) => {
+    const formData = new FormData();
+    formData.append("priceId", priceId);
+    formData.append("uiMode", "hosted");
+    formData.append("planName", planName);
+    formData.append("amount", amount.toString());
+
+    const { url } = await createCheckoutSession(formData);
+
+    window.location.assign(url as string);
+  };
+
   return (
     <>
       <h1 className="text-4xl text-center">{paymentsConfig.title}</h1>
@@ -24,7 +49,12 @@ export const Pricing = () => {
                   <h2 className="text-center text-4xl text-primary">
                     {plan.name}
                   </h2>
-                  <p className="text-xl">{plan.price}</p>
+                  <p className="text-xl">
+                    {formatAmountForDisplay(
+                      plan.price,
+                      paymentsConfig.defaultCurrency,
+                    )}
+                  </p>
                   <ul className="menu py-4">
                     {plan.features.map((feature, index) => (
                       <li className="" key={index}>
@@ -32,9 +62,18 @@ export const Pricing = () => {
                       </li>
                     ))}
                   </ul>
-                  <a href={plan.ctaLink} className="btn btn-primary">
+                  <button
+                    onClick={() =>
+                      handleCheckout({
+                        planName: plan.name,
+                        priceId: plan.priceId,
+                        amount: plan.price,
+                      })
+                    }
+                    className="btn btn-primary"
+                  >
                     {plan.cta}
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
