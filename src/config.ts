@@ -102,14 +102,16 @@ export const landingPageContent = {
   },
 };
 
-export const pricePageContent = {
+export const paymentsConfig = {
   title: "Choose the plan that suits you best",
   description: "Start with a 14-day free trial. No credit card needed.",
+  defaultCurrency: "USD",
   pricingPlans: [
     {
       id: 1,
       name: "Basic",
       price: "$9.99/month",
+      priceId: "your_stripe_price_id",
       features: ["Feature 1", "Feature 2", "Feature 3"],
       cta: "Start Basic",
       ctaLink: "/subscribe/basic",

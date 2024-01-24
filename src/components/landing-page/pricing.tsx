@@ -1,10 +1,10 @@
-import { pricePageContent } from "@/config";
+import { paymentsConfig } from "@/config";
 
 export const Pricing = () => {
   return (
     <>
-      <h1 className="text-4xl text-center">{pricePageContent.title}</h1>
-      <p className="text-lg text-center py-4">{pricePageContent.description}</p>
+      <h1 className="text-4xl text-center">{paymentsConfig.title}</h1>
+      <p className="text-lg text-center py-4">{paymentsConfig.description}</p>
       <div className="container mx-auto px-4 py-12 text-center">
         <div className="flex justify-center py-4">
           <div className="form-control w-64 flex justify-between">
@@ -17,7 +17,7 @@ export const Pricing = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-4">
-          {pricePageContent.pricingPlans.map((plan) => (
+          {paymentsConfig.pricingPlans.map((plan) => (
             <div key={plan.id} className="w-full md:w-1/3 px-4 mb-6">
               <div className="card bordered shadow-2xl">
                 <div className="card-body">
