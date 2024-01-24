@@ -11,7 +11,7 @@ export const Navbar = () => {
   const { status } = useAuth();
 
   return (
-    <nav className="navbar bg-base-100" aria-label="main navbar">
+    <nav className="navbar bg-base-200" aria-label="main navbar">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

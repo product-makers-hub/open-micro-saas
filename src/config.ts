@@ -101,3 +101,40 @@ export const landingPageContent = {
     links: ["Lorem", "Ipsum", "Dolor", "Sit"],
   },
 };
+
+export const pricePageContent = {
+  title: "Choose the plan that suits you best",
+  description: "Start with a 14-day free trial. No credit card needed.",
+  pricingPlans: [
+    {
+      id: 1,
+      name: "Basic",
+      price: "$9.99/month",
+      features: ["Feature 1", "Feature 2", "Feature 3"],
+      cta: "Start Basic",
+      ctaLink: "/subscribe/basic",
+    },
+    {
+      id: 2,
+      name: "Pro",
+      price: "$29.99/month",
+      features: [
+        "Feature 1",
+        "Feature 2",
+        "Feature 3",
+        "Feature 4",
+        "Feature 5",
+      ],
+      cta: "Start Pro",
+      ctaLink: "/subscribe/pro",
+    },
+    {
+      id: 3,
+      name: "Enterprise",
+      price: "Contact us",
+      features: ["All Pro features", "Additional Feature 6", "24/7 Support"],
+      cta: "Contact Sales",
+      ctaLink: "/contact",
+    },
+  ],
+};
