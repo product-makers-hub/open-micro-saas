@@ -5,8 +5,8 @@ export const authConfig = {
 };
 
 export const mailConfig = {
-  fromAdmin: "Juan Correa <mailgun@sandbox-123.mailgun.org>",
-  domain: "sandbox-123.mailgun.org",
+  fromAdmin: "Juan Correa <no-reply@mail.openmicrosaas.org>",
+  domain: "mail.openmicrosaas.org",
 };
 
 export const siteMetadata = {

@@ -2,7 +2,7 @@
 
 import { getUserByEmail } from "@/repositories/user-repository";
 import { encodeUserData } from "@/libs/encode-user-data";
-import { sendEmail } from "@/libs/mailgun";
+import { sendEmail } from "@/libs/resend";
 
 interface PrevState {
   message: string;
