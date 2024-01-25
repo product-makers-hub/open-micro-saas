@@ -9,7 +9,7 @@ export const getGoogleProvider = () =>
     clientId: process.env.GOOGLE_CLIENT_ID as string,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     async profile(profile) {
-      const user = await getUserByEmail(profile.emmail);
+      const user = await getUserByEmail(profile.email);
 
       return {
         id: profile.sub,
@@ -18,7 +18,7 @@ export const getGoogleProvider = () =>
         image: profile.picture,
         createdAt: new Date(),
         roleId: user?.role?.id || USER_ROLE_ID,
-        role: user?.role,
+        isActive: user?.isActive || true,
       };
     },
   });
