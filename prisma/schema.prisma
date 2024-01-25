@@ -40,19 +40,20 @@ model Session {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  publicId      String   @default(uuid()) @unique
-  isActive      Boolean  @default(true)
-  name          String?
-  email         String?  @unique
-  password      String?   
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime  @default(now())
-  accounts      Account[]
-  sessions      Session[]
-  roleId        Int
-  role          Role      @relation(fields: [roleId], references: [id])
+  id                Int      @id @default(autoincrement())
+  publicId          String   @default(uuid()) @unique
+  isActive          Boolean  @default(true)
+  stripeCustomerId  String?  @unique
+  name              String?
+  email             String?  @unique
+  password          String?   
+  emailVerified     DateTime?
+  image             String?
+  createdAt         DateTime  @default(now())
+  accounts          Account[]
+  sessions          Session[]
+  roleId            Int
+  role              Role      @relation(fields: [roleId], references: [id])
 }
 
 model Role {
