@@ -2,8 +2,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { getUserByEmail } from "@/repositories/user-repository";
 
-import { USER_ROLE_ID } from "@/consts/roles-consts";
-
 export const getGoogleProvider = () =>
   GoogleProvider({
     clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -17,7 +15,6 @@ export const getGoogleProvider = () =>
         email: profile.email,
         image: profile.picture,
         createdAt: new Date(),
-        roleId: user?.role?.id || USER_ROLE_ID,
         isActive: user?.isActive || true,
       };
     },

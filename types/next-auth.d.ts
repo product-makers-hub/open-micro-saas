@@ -6,7 +6,6 @@ import NextAuth, { DefaultSession } from "next-auth";
 interface Role {
   name: string;
   id: number | undefined;
-  publicId: string;
 }
 
 declare module "next-auth" {

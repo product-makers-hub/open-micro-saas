@@ -1,4 +1,5 @@
-import prisma from "../../src/libs/prisma";
+import { PrismaClient } from "@prisma/client";
+
 import {
   ADMIN_ROLE_ID,
   USER_ROLE_ID,
@@ -6,24 +7,32 @@ import {
   USER_ROLE_NAME,
 } from "../../src/consts/roles-consts";
 import { hashPassword } from "../../src/libs/password-lib";
-import { createOrUpdateUser } from "../../src/repositories/user-repository";
-import { createOrUpdateRole } from "../../src/repositories/role-repository";
 import { inactiveUser as inactiveUserData } from "../../tests/data/inactive-user";
+import { adminUser as adminUserData } from "../../tests/data/admin-user";
+import { normalUser as normalUserData } from "../../tests/data/normal-user";
+
+const prisma = new PrismaClient();
 
 export async function createAdminRoleAndUser() {
-  const roleAdmin = await createOrUpdateRole({
-    id: ADMIN_ROLE_ID,
-    name: ADMIN_ROLE_NAME,
+  const roleAdmin = await prisma.role.create({
+    data: {
+      id: ADMIN_ROLE_ID,
+      name: ADMIN_ROLE_NAME,
+    },
   });
 
   console.log({ roleAdmin });
 
-  const userAdmin = await createOrUpdateUser({
-    email: "admin@my-saas.com",
-    name: "Admin",
-    password: await hashPassword("admin"),
-    role: {
-      id: roleAdmin.id,
+  const userAdmin = await prisma.user.create({
+    data: {
+      email: adminUserData.email,
+      name: adminUserData.name,
+      password: await hashPassword("admin"),
+      role: {
+        connect: {
+          id: roleAdmin.id,
+        },
+      },
     },
   });
 
@@ -31,31 +40,43 @@ export async function createAdminRoleAndUser() {
 }
 
 export async function createNormalRoleAndUsers() {
-  const roleUser = await createOrUpdateRole({
-    id: USER_ROLE_ID,
-    name: USER_ROLE_NAME,
+  const roleUser = await prisma.role.create({
+    data: {
+      id: USER_ROLE_ID,
+      name: USER_ROLE_NAME,
+    },
   });
 
   console.log({ roleUser });
 
-  const userNormal = await createOrUpdateUser({
-    email: "user@my-saas.com",
-    name: "Jimmy Doe",
-    password: await hashPassword("user"),
-    role: {
-      id: roleUser.id,
+  const userNormal = await prisma.user.create({
+    data: {
+      email: normalUserData.email,
+      name: normalUserData.name,
+      password: await hashPassword("user"),
+      role: {
+        connect: {
+          id: roleUser.id,
+        },
+      },
     },
   });
 
   console.log({ userNormal: { ...userNormal, password: undefined } });
 
-  const inactiveUser = await createOrUpdateUser({
-    email: inactiveUserData.email,
-    name: inactiveUserData.name,
-    password: await hashPassword(inactiveUserData.plainPassword),
-    isActive: false,
-    role: {
-      id: USER_ROLE_ID,
+  const inactiveUser = await prisma.user.upsert({
+    where: { email: inactiveUserData.email },
+    update: {},
+    create: {
+      email: inactiveUserData.email,
+      name: inactiveUserData.name,
+      password: await hashPassword(inactiveUserData.plainPassword),
+      isActive: false,
+      role: {
+        connect: {
+          id: USER_ROLE_ID,
+        },
+      },
     },
   });
 

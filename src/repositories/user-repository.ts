@@ -5,8 +5,10 @@ import { UserRole } from "@/consts/roles-consts";
 interface User {
   email: string;
   name: string;
-  password: string;
+  password?: string;
   isActive?: boolean;
+  emailVerified?: Date | null;
+  image?: string;
   role: {
     id: number;
   };
@@ -21,7 +23,7 @@ export const getUserByEmail = async (email: string) => {
 
 export const getUserByUid = async (uid: string) => {
   return await prisma.user.findUnique({
-    where: { publicId: uid },
+    where: { id: uid },
   });
 };
 
@@ -31,6 +33,8 @@ export const createOrUpdateUser = async ({
   password,
   role,
   isActive = true,
+  emailVerified,
+  image,
 }: User) => {
   return await prisma.user.upsert({
     where: { email: email },
@@ -40,6 +44,8 @@ export const createOrUpdateUser = async ({
       name,
       password,
       isActive,
+      emailVerified,
+      image,
       role: {
         connect: {
           id: role.id,

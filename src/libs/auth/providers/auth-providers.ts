@@ -1,4 +1,4 @@
 import { getGoogleProvider } from "./google-provider";
-import { getCredentialsProvider } from "./credentials-provider";
+import { getEmailProvider } from "./email-provider";
 
-export const providers = [getGoogleProvider(), getCredentialsProvider()];
+export const providers = [getEmailProvider(), getGoogleProvider()];
