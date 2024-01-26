@@ -33,6 +33,7 @@ jobs:
           if [ -z "${{ secrets.NEXTAUTH_SECRET }}" ]; then echo "NEXTAUTH_SECRET is not set"; else echo "NEXTAUTH_SECRET is set"; fi
           if [ -z "${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}" ]; then echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set"; else echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is set"; fi
           if [ -z "${{ secrets.STRIPE_SECRET_KEY }}" ]; then echo "STRIPE_SECRET_KEY is not set"; else echo "STRIPE_SECRET_KEY is set"; fi
+          if [ -z "${{ secrets.EMAIL_SERVER }}" ]; then echo "EMAIL_SERVER is not set"; else echo "EMAIL_SERVER is set"; fi
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -56,6 +57,7 @@ jobs:
           DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:${{ job.services.postgres.ports[5432] }}/${{ secrets.POSTGRES_DB }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          EMAIL_SERVER: ${{ secrets.EMAIL_SERVER }}
         run: npx playwright test
       - uses: actions/upload-artifact@v3
         if: always()
