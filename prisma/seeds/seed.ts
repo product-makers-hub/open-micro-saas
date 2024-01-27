@@ -6,7 +6,6 @@ import {
   ADMIN_ROLE_NAME,
   USER_ROLE_NAME,
 } from "../../src/consts/roles-consts";
-import { hashPassword } from "../../src/libs/password-lib";
 import { inactiveUser as inactiveUserData } from "../../tests/data/inactive-user";
 import { adminUser as adminUserData } from "../../tests/data/admin-user";
 import { normalUser as normalUserData } from "../../tests/data/normal-user";
@@ -27,7 +26,6 @@ export async function createAdminRoleAndUser() {
     data: {
       email: adminUserData.email,
       name: adminUserData.name,
-      password: await hashPassword("admin"),
       role: {
         connect: {
           id: roleAdmin.id,
@@ -36,7 +34,7 @@ export async function createAdminRoleAndUser() {
     },
   });
 
-  console.log({ userAdmin: { ...userAdmin, password: undefined } });
+  console.log({ userAdmin });
 }
 
 export async function createNormalRoleAndUsers() {
@@ -53,7 +51,6 @@ export async function createNormalRoleAndUsers() {
     data: {
       email: normalUserData.email,
       name: normalUserData.name,
-      password: await hashPassword("user"),
       role: {
         connect: {
           id: roleUser.id,
@@ -62,7 +59,7 @@ export async function createNormalRoleAndUsers() {
     },
   });
 
-  console.log({ userNormal: { ...userNormal, password: undefined } });
+  console.log({ userNormal });
 
   const inactiveUser = await prisma.user.upsert({
     where: { email: inactiveUserData.email },
@@ -70,7 +67,6 @@ export async function createNormalRoleAndUsers() {
     create: {
       email: inactiveUserData.email,
       name: inactiveUserData.name,
-      password: await hashPassword(inactiveUserData.plainPassword),
       isActive: false,
       role: {
         connect: {
@@ -80,7 +76,7 @@ export async function createNormalRoleAndUsers() {
     },
   });
 
-  console.log({ inactiveUser: { ...inactiveUser, password: undefined } });
+  console.log({ inactiveUser });
 }
 
 async function main() {

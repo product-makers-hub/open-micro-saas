@@ -40,8 +40,7 @@ model Account {
   isActive          Boolean  @default(true)
   stripeCustomerId  String?  @unique
   name              String?
-  email             String?   @unique
-  password          String? 
+  email             String?   @unique 
   emailVerified     DateTime?
   image             String?
   roleId            Int

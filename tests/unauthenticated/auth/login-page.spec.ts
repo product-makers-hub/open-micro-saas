@@ -35,7 +35,6 @@ test.describe("Login page", () => {
 
     // act
     await page.getByLabel(/email/i).fill(inactiveUser.email);
-    await page.getByLabel(/password/i).fill(inactiveUser.plainPassword);
     await page.getByRole("button", { name: /sign in$/i }).click();
 
     // assert

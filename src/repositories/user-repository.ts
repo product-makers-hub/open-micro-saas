@@ -5,7 +5,6 @@ import { UserRole } from "@/consts/roles-consts";
 interface User {
   email: string;
   name: string;
-  password?: string;
   isActive?: boolean;
   emailVerified?: Date | null;
   image?: string;
@@ -30,7 +29,6 @@ export const getUserByUid = async (uid: string) => {
 export const createOrUpdateUser = async ({
   email,
   name,
-  password,
   role,
   isActive = true,
   emailVerified,
@@ -42,7 +40,6 @@ export const createOrUpdateUser = async ({
     create: {
       email,
       name,
-      password,
       isActive,
       emailVerified,
       image,
@@ -85,18 +82,6 @@ export const toggleUserAccessByEmail = async (email: string) => {
   return prisma.user.update({
     where: { email },
     data: { isActive: !user.isActive },
-  });
-};
-
-export const updateUserPasswordByEmail = async (
-  email: string,
-  password: string,
-) => {
-  return await prisma.user.update({
-    where: { email },
-    data: {
-      password,
-    },
   });
 };
 
