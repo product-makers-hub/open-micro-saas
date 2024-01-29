@@ -77,8 +77,9 @@ test.describe("User management", () => {
     ).toBeVisible();
   });
 
-  test("admin user can see the access toggle element", async ({ page }) => {
+  test("admin user can see and toggle user access", async ({ page }) => {
     await page.goto("/admin/dashboard/user-management");
+    await expect(page.getByText("User access was updated")).not.toBeVisible();
 
     const userRow = page.getByRole("row", {
       name: normalUser.email,
@@ -90,16 +91,6 @@ test.describe("User management", () => {
         .getByRole("cell", { name: /disactive user access/i })
         .getByRole("checkbox"),
     ).toBeVisible();
-  });
-
-  test("admin user can toggle user access", async ({ page }) => {
-    await page.goto("/admin/dashboard/user-management");
-    await expect(page.getByText("User access was updated")).not.toBeVisible();
-
-    const userRow = page.getByRole("row", {
-      name: normalUser.email,
-      exact: true,
-    });
 
     await userRow
       .getByRole("cell", { name: /disactive user access/i })
@@ -133,10 +124,12 @@ test.describe("User management", () => {
       name: inactiveUser.email,
       exact: true,
     });
+    await expect(userRow).toBeVisible();
 
     const userRoleSelect = userRow
       .getByRole("cell", { name: USER_ROLE_NAME })
       .getByRole("combobox");
+    await expect(userRoleSelect).toBeVisible();
 
     await userRoleSelect.selectOption({ label: ADMIN_ROLE_NAME });
 
