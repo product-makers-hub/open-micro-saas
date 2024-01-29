@@ -15,6 +15,10 @@ const tableHeaders = [
 export const UsersTable = async () => {
   const users = await getUsersAction();
 
+  if (!users || !users.length) {
+    return <p>No users found</p>;
+  }
+
   return (
     <div className="overflow-x-auto">
       <table aria-label="users list" className="table table-md">
