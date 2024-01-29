@@ -69,6 +69,7 @@ setup("let the admin user login with magic email", async ({ page }) => {
   ).toBeVisible();
 
   await page.context().storageState({ path: adminUser.storageSessionPath });
+  console.log("Admin user logged in");
 });
 
 setup("let a normal user login with magic email", async ({ page }) => {
@@ -102,4 +103,5 @@ setup("let a normal user login with magic email", async ({ page }) => {
   await expect(page.getByRole("heading", { name: /dashboard/i })).toBeVisible();
 
   await page.context().storageState({ path: normalUser.storageSessionPath });
+  console.log("Normal user logged in");
 });

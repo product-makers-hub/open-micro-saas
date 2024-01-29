@@ -34,8 +34,8 @@ jobs:
           if [ -z "${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}" ]; then echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set"; else echo "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is set"; fi
           if [ -z "${{ secrets.STRIPE_SECRET_KEY }}" ]; then echo "STRIPE_SECRET_KEY is not set"; else echo "STRIPE_SECRET_KEY is set"; fi
           if [ -z "${{ secrets.EMAIL_SERVER }}" ]; then echo "EMAIL_SERVER is not set"; else echo "EMAIL_SERVER is set"; fi
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: "npm"
@@ -59,7 +59,7 @@ jobs:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           EMAIL_SERVER: ${{ secrets.EMAIL_SERVER }}
         run: npx playwright test
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
