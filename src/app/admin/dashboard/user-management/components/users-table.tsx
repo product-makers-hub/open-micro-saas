@@ -1,10 +1,8 @@
 import { getUsersAction } from "@/app/admin/dashboard/user-management/actions";
 
-import { ToggleUserStatus } from "./toggle-user-status";
 import { SelectRole } from "./select-role";
 
 const tableHeaders = [
-  "Access",
   "Status",
   "Email",
   "Name",
@@ -36,12 +34,6 @@ export const UsersTable = async () => {
               className="hover"
               aria-label={user.email as string}
             >
-              <td>
-                <ToggleUserStatus
-                  isActive={user.isActive}
-                  email={user.email as string}
-                />
-              </td>
               <td>{user.isActive ? "Active" : "Inactive"}</td>
               <td>{user.email}</td>
               <td>{user.name}</td>

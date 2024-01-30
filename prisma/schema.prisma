@@ -37,7 +37,7 @@ model Account {
 
  model User {
   id                String   @id @default(cuid())
-  isActive          Boolean  @default(true)
+  isActive          Boolean  @default(false)
   stripeCustomerId  String?  @unique
   name              String?
   email             String?   @unique 

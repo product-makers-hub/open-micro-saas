@@ -48,9 +48,6 @@ test.describe("User management", () => {
     await expect(
       tableHeaders.getByRole("cell", { name: /role/i }),
     ).toBeVisible();
-    await expect(
-      tableHeaders.getByRole("cell", { name: /access/i }),
-    ).toBeVisible();
   });
 
   test("admin user can see users details", async ({ page }) => {
@@ -70,49 +67,11 @@ test.describe("User management", () => {
       userRow.getByRole("cell", { name: normalUser.name }),
     ).toBeVisible();
     await expect(
-      userRow.getByRole("cell", { name: "Active", exact: true }),
+      userRow.getByRole("cell", { name: "Inactive", exact: true }),
     ).toBeVisible();
     await expect(
       userRow.getByRole("cell", { name: USER_ROLE_NAME, exact: true }),
     ).toBeVisible();
-  });
-
-  test("admin user can see and toggle user access", async ({ page }) => {
-    await page.goto("/admin/dashboard/user-management");
-    await expect(page.getByText("User access was updated")).not.toBeVisible();
-
-    const userRow = page.getByRole("row", {
-      name: normalUser.email,
-      exact: true,
-    });
-
-    await expect(
-      userRow
-        .getByRole("cell", { name: /disactive user access/i })
-        .getByRole("checkbox"),
-    ).toBeVisible();
-
-    await userRow
-      .getByRole("cell", { name: /disactive user access/i })
-      .getByRole("checkbox")
-      .click();
-
-    await expect(page.getByText("User access was updated")).toBeVisible();
-  });
-
-  test("admin user can see the user role select element", async ({ page }) => {
-    await page.goto("/admin/dashboard/user-management");
-
-    const userRow = page.getByRole("row", {
-      name: normalUser.email,
-      exact: true,
-    });
-
-    const userRoleSelect = userRow
-      .getByRole("cell", { name: USER_ROLE_NAME })
-      .getByRole("combobox");
-
-    await expect(userRoleSelect).toBeVisible();
   });
 
   test("admin user can update user role", async ({ page }) => {

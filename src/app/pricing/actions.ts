@@ -2,10 +2,12 @@
 
 import type { Stripe } from "stripe";
 import { headers } from "next/headers";
+import { getServerSession } from "next-auth";
 
 import { paymentsConfig } from "@/config";
 import { formatAmountForStripe } from "@/libs/stripe/stripe-helpers";
 import { stripe } from "@/libs/stripe/stripe";
+import { authOptions } from "@/libs/auth/auth-options";
 
 interface ReturnData {
   client_secret: string | null;
@@ -15,6 +17,16 @@ interface ReturnData {
 export async function createCheckoutSession(
   data: FormData,
 ): Promise<ReturnData> {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    throw new Error("No session found");
+  }
+
+  if (!session.user.stripeCustomerId) {
+    throw new Error("No stripeCustomerId found");
+  }
+
   const ui_mode = data.get(
     "uiMode",
   ) as Stripe.Checkout.SessionCreateParams.UiMode;
@@ -23,7 +35,8 @@ export async function createCheckoutSession(
 
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create({
-      mode: "payment",
+      mode: "subscription",
+      customer: session.user.stripeCustomerId,
       line_items: [
         {
           quantity: 1,
@@ -31,6 +44,9 @@ export async function createCheckoutSession(
             currency: paymentsConfig.defaultCurrency,
             product_data: {
               name: data.get("planName") as string,
+            },
+            recurring: {
+              interval: "month",
             },
             unit_amount: formatAmountForStripe(
               Number(data.get("amount") as string),
@@ -40,11 +56,11 @@ export async function createCheckoutSession(
         },
       ],
       ...(ui_mode === "hosted" && {
-        success_url: `${origin}/dashboard/result?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${origin}/dashboard`,
       }),
       ...(ui_mode === "embedded" && {
-        return_url: `${origin}/donate-with-embedded-checkout/result?session_id={CHECKOUT_SESSION_ID}`,
+        return_url: `${origin}/dashboard/result?session_id={CHECKOUT_SESSION_ID}`,
       }),
       ui_mode,
     });

@@ -3,7 +3,11 @@ import type { Adapter } from "next-auth/adapters";
 
 import { providers } from "@/libs/auth/providers/auth-providers";
 import prisma from "@/libs/prisma";
-import { getUserByEmail } from "@/repositories/user-repository";
+import {
+  getUserByEmail,
+  updateStripeCustomerIdByEmail,
+} from "@/repositories/user-repository";
+import { stripe } from "@/libs/stripe/stripe";
 import { CustomPrismaAdapter } from "./custom-prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
@@ -24,6 +28,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user && userData) {
         session.user.role = userData.role;
         session.user.isActive = userData.isActive;
+        session.user.stripeCustomerId = userData.stripeCustomerId;
       }
 
       return session;
@@ -41,6 +46,30 @@ export const authOptions: NextAuthOptions = {
       }
 
       return token;
+    },
+  },
+  events: {
+    createUser: async ({ user }) => {
+      try {
+        if (!user.email) {
+          console.warn("events:createUser: No email found", {
+            user: user.email,
+          });
+          return;
+        }
+
+        const customer = await stripe.customers.create({
+          email: user.email!,
+        });
+
+        await updateStripeCustomerIdByEmail(user.email, customer.id);
+
+        console.log("events:createUser - Stripe customer created", {
+          user: user.email,
+        });
+      } catch (e) {
+        console.error("events:createUser", e);
+      }
     },
   },
   debug: false,

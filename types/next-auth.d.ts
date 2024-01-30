@@ -17,6 +17,7 @@ declare module "next-auth" {
       publicId: string;
       role: Role;
       isActive: boolean;
+      stripeCustomerId: string | null;
     } & DefaultSession["user"];
   }
 }

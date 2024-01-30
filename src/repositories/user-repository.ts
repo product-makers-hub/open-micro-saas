@@ -102,3 +102,28 @@ export const updateUserRoleByEmail = async (email: string, role: UserRole) => {
     throw new Error("Failed to update user role");
   }
 };
+
+export const updateStripeCustomerIdByEmail = async (
+  email: string,
+  stripeCustomerId: string,
+) => {
+  return await prisma.user.update({
+    where: { email },
+    data: {
+      stripeCustomerId,
+    },
+  });
+};
+
+export const activeUserByStripeCustomerId = async (
+  stripeCustomerId: string,
+) => {
+  return await prisma.user.update({
+    where: {
+      stripeCustomerId: stripeCustomerId,
+    },
+    data: {
+      isActive: true,
+    },
+  });
+};
