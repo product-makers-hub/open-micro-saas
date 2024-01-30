@@ -1,31 +1,8 @@
-"use client";
-
 import { paymentsConfig } from "@/config";
-
-import { createCheckoutSession } from "@/app/pricing/actions";
 import { formatAmountForDisplay } from "@/libs/stripe/stripe-helpers";
+import { SubscribeButton } from "./subscribe-button";
 
 export const Pricing = () => {
-  const handleCheckout = async ({
-    priceId,
-    planName,
-    amount,
-  }: {
-    priceId: string;
-    planName: string;
-    amount: number;
-  }) => {
-    const formData = new FormData();
-    formData.append("priceId", priceId);
-    formData.append("uiMode", "hosted");
-    formData.append("planName", planName);
-    formData.append("amount", amount.toString());
-
-    const { url } = await createCheckoutSession(formData);
-
-    window.location.assign(url as string);
-  };
-
   return (
     <>
       <h1 className="text-4xl text-center">{paymentsConfig.title}</h1>
@@ -62,18 +39,13 @@ export const Pricing = () => {
                       </li>
                     ))}
                   </ul>
-                  <button
-                    onClick={() =>
-                      handleCheckout({
-                        planName: plan.name,
-                        priceId: plan.priceId,
-                        amount: plan.price,
-                      })
-                    }
-                    className="btn btn-primary"
+                  <SubscribeButton
+                    planName={plan.name}
+                    priceId={plan.priceId}
+                    amount={plan.price}
                   >
                     {plan.cta}
-                  </button>
+                  </SubscribeButton>
                 </div>
               </div>
             </div>
