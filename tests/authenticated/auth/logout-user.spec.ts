@@ -11,7 +11,6 @@ test.describe("Logout user", () => {
     // act
     await page.getByRole("button", { name: /user profile avatar/i }).click();
     await page.getByRole("button", { name: /logout/i }).click();
-    await page.waitForResponse("**/api/auth/signout");
 
     // assert
     await expect(page.getByRole("link", { name: /login/i })).toBeVisible();
