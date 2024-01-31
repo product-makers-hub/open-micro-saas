@@ -52,7 +52,7 @@ export const UserDropdown = () => {
         aria-labelledby="user menu"
         className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
       >
-        {user?.role.name === ADMIN_ROLE_NAME && (
+        {user?.role?.name === ADMIN_ROLE_NAME && (
           <li>
             <Link href="/admin/dashboard" className="justify-between">
               Admin Dashboard
