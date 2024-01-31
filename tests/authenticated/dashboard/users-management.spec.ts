@@ -67,7 +67,7 @@ test.describe("User management", () => {
       userRow.getByRole("cell", { name: normalUser.name }),
     ).toBeVisible();
     await expect(
-      userRow.getByRole("cell", { name: "Inactive", exact: true }),
+      userRow.getByRole("cell", { name: "Active", exact: true }),
     ).toBeVisible();
     await expect(
       userRow.getByRole("cell", { name: USER_ROLE_NAME, exact: true }),

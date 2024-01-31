@@ -5,10 +5,12 @@ import { load as cheerioLoad } from "cheerio";
 
 import { adminUser } from "./data/admin-user";
 import { normalUser } from "./data/normal-user";
+import { inactiveUser } from "./data/inactive-user";
 import { truncateDb } from "../prisma/truncate-db";
 import {
   createAdminRoleAndUser,
   createNormalRoleAndUsers,
+  createInactiveUser,
 } from "../prisma/seeds/seed";
 
 /**
@@ -103,5 +105,39 @@ setup("let a normal user login with magic email", async ({ page }) => {
   await expect(page.getByRole("heading", { name: /dashboard/i })).toBeVisible();
 
   await page.context().storageState({ path: normalUser.storageSessionPath });
+  console.log("Normal user logged in");
+});
+
+setup("let an innactive user login with magic email", async ({ page }) => {
+  // arrange
+  await createInactiveUser();
+  await page.goto(inactiveUser.loginUrl);
+  await expect(page.getByRole("link", { name: /Login/i })).toBeVisible();
+
+  // act
+  await page.getByLabel(/Email/i).fill(inactiveUser.email);
+  await page.getByRole("button", { name: /Sign in with Email/i }).click();
+
+  // assert
+  await expect(
+    page.getByText(/Please check your email for the magic link/i),
+  ).toBeVisible();
+
+  // get the email from the mail server
+  const { email } = await mailServer.captureOne(inactiveUser.email, {
+    wait: 1000,
+  });
+  const $ = cheerioLoad(email.html as string);
+  const emailLink = $("a").attr("href");
+  await page.goto(emailLink as string);
+
+  await expect(page).toHaveURL(inactiveUser.appUrl);
+  await expect(
+    page.getByRole("img", { name: "user profile avatar" }),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: /Login/i })).not.toBeVisible();
+  await expect(page.getByRole("heading", { name: /dashboard/i })).toBeVisible();
+
+  await page.context().storageState({ path: inactiveUser.storageSessionPath });
   console.log("Normal user logged in");
 });

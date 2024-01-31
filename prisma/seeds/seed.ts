@@ -51,6 +51,7 @@ export async function createNormalRoleAndUsers() {
     data: {
       email: normalUserData.email,
       name: normalUserData.name,
+      isActive: true,
       role: {
         connect: {
           id: roleUser.id,
@@ -60,6 +61,19 @@ export async function createNormalRoleAndUsers() {
   });
 
   console.log({ userNormal });
+}
+
+export async function createInactiveUser() {
+  const roleUser = await prisma.role.upsert({
+    where: { id: USER_ROLE_ID },
+    update: {},
+    create: {
+      id: USER_ROLE_ID,
+      name: USER_ROLE_NAME,
+    },
+  });
+
+  console.log({ roleUser });
 
   const inactiveUser = await prisma.user.upsert({
     where: { email: inactiveUserData.email },
@@ -82,6 +96,7 @@ export async function createNormalRoleAndUsers() {
 async function main() {
   await createAdminRoleAndUser();
   await createNormalRoleAndUsers();
+  await createInactiveUser();
 }
 
 if (require.main === module) {

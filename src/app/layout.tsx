@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 import { AuthProvider } from "@/components/auth-provider";
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
+        <Toaster position="bottom-right" />
         <body className={inter.className}>
           <Navbar />
           {children}

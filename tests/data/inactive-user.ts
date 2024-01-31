@@ -5,4 +5,5 @@ export const inactiveUser = {
   name: "Joe Doe",
   appUrl: authConfig.normalUserCallbackUrl,
   loginUrl: authConfig.loginUrl,
+  storageSessionPath: "./tests/data/innactive-user.session.json",
 };

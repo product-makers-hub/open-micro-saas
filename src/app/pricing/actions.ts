@@ -71,6 +71,26 @@ export async function createCheckoutSession(
   };
 }
 
+export async function createPortalSession() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    throw new Error("No session found");
+  }
+
+  if (!session.user.stripeCustomerId) {
+    throw new Error("No stripeCustomerId found");
+  }
+
+  const portalSession: Stripe.BillingPortal.Session =
+    await stripe.billingPortal.sessions.create({
+      customer: session.user.stripeCustomerId,
+      return_url: `${headers().get("origin")}/dashboard`,
+    });
+
+  return { url: portalSession.url };
+}
+
 export async function createPaymentIntent(
   data: FormData,
 ): Promise<{ client_secret: string }> {

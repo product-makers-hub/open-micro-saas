@@ -1,6 +1,5 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { Toaster } from "react-hot-toast";
 
 import { authConfig } from "@/config";
 import { Drawer } from "@/components/drawer";
@@ -17,10 +16,5 @@ export default async function AdminDashboardLayout({
     redirect(authConfig.loginUrl);
   }
 
-  return (
-    <>
-      <Toaster position="bottom-right" />
-      <Drawer>{children}</Drawer>
-    </>
-  );
+  return <Drawer>{children}</Drawer>;
 }

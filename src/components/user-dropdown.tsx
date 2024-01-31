@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 
 import { useAuth } from "@/hooks/use-auth";
 import { ADMIN_ROLE_NAME } from "@/consts/roles-consts";
+import { BillingButton } from "./billing-button";
 
 export const UserDropdown = () => {
   const { user } = useAuth();
@@ -63,6 +64,11 @@ export const UserDropdown = () => {
             Profile
           </Link>
         </li>
+        {user?.isActive && (
+          <li>
+            <BillingButton />
+          </li>
+        )}
         <li>
           <button onClick={() => signOut()}>Logout</button>
         </li>

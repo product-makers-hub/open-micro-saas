@@ -24,6 +24,17 @@ test.describe("Normal user - navigation dropdown", () => {
     await expect(page.getByRole("button", { name: /logout/i })).toBeVisible();
   });
 
+  test("should display the billing button", async ({ page }) => {
+    await page.goto("/");
+    await expect(
+      page.getByRole("button", { name: /billing/i }),
+    ).not.toBeVisible();
+
+    await page.getByRole("button", { name: /user profile avatar/i }).click();
+
+    await expect(page.getByRole("button", { name: /billing/i })).toBeVisible();
+  });
+
   test("should not display the admin dashboard link", async ({ page }) => {
     await page.goto("/");
 
