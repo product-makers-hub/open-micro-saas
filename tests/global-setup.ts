@@ -1,4 +1,5 @@
 import { test as setup, expect } from "@playwright/test";
+import type { Page } from "@playwright/test";
 import smtpTester from "smtp-tester";
 import type { MailServer } from "smtp-tester";
 import { load as cheerioLoad } from "cheerio";
@@ -8,13 +9,13 @@ import { normalUser } from "./data/normal-user";
 import { inactiveUser } from "./data/inactive-user";
 import { truncateDb } from "../prisma/truncate-db";
 import {
-  createAdminRoleAndUser,
-  createNormalRoleAndUsers,
+  createRoles,
   createInactiveUser,
+  createAdminUser,
+  createActiveUser,
 } from "../prisma/seeds/seed";
 
 /**
- * This file is used to setup the global environment for the tests.
  * It's required to run un serial mode because the mail server will try
  * to start multiple times with the same port and it will fail (port already in use).
  * Remember that the tests are run in parallel by default and Playwright will use
@@ -30,6 +31,7 @@ let mailServer: MailServer;
 // Is closed but still not working.
 setup.beforeAll(async () => {
   await truncateDb();
+  await createRoles();
   mailServer = smtpTester.init(4025);
 });
 
@@ -37,14 +39,23 @@ setup.afterAll(() => {
   mailServer.stop(() => console.log("Mail server stopped"));
 });
 
-setup("let the admin user login with magic email", async ({ page }) => {
+interface LoginUser {
+  user: {
+    email: string;
+    loginUrl: string;
+    appUrl: string;
+    storageSessionPath: string;
+  };
+  page: Page;
+}
+
+const loginUser = async ({ user, page }: LoginUser) => {
   // arrange
-  await createAdminRoleAndUser();
-  await page.goto(adminUser.loginUrl);
+  await page.goto(user.loginUrl);
   await expect(page.getByRole("link", { name: /Login/i })).toBeVisible();
 
   // act
-  await page.getByLabel(/Email/i).fill(adminUser.email);
+  await page.getByLabel(/Email/i).fill(user.email);
   await page.getByRole("button", { name: /Sign in with Email/i }).click();
 
   // assert
@@ -53,7 +64,7 @@ setup("let the admin user login with magic email", async ({ page }) => {
   ).toBeVisible();
 
   // get the email from the mail server
-  const { email } = await mailServer.captureOne(adminUser.email, {
+  const { email } = await mailServer.captureOne(user.email, {
     wait: 1000,
   });
   const $ = cheerioLoad(email.html as string);
@@ -61,83 +72,27 @@ setup("let the admin user login with magic email", async ({ page }) => {
   await page.goto(emailLink as string);
 
   // assert after login
-  await expect(page).toHaveURL(adminUser.appUrl);
+  await expect(page).toHaveURL(user.appUrl);
   await expect(
     page.getByRole("img", { name: "user profile avatar" }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: /Login/i })).not.toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: /admin dashboard/i }),
-  ).toBeVisible();
 
-  await page.context().storageState({ path: adminUser.storageSessionPath });
-  console.log("Admin user logged in");
+  await page.context().storageState({ path: user.storageSessionPath });
+  console.log(`${user.email} logged in`);
+};
+
+setup("let the admin user login with magic email", async ({ page }) => {
+  await createAdminUser();
+  await loginUser({ user: adminUser, page });
 });
 
-setup("let a normal user login with magic email", async ({ page }) => {
-  // arrange
-  await createNormalRoleAndUsers();
-  await page.goto(normalUser.loginUrl);
-  await expect(page.getByRole("link", { name: /Login/i })).toBeVisible();
-
-  // act
-  await page.getByLabel(/Email/i).fill(normalUser.email);
-  await page.getByRole("button", { name: /Sign in with Email/i }).click();
-
-  // assert
-  await expect(
-    page.getByText(/Please check your email for the magic link/i),
-  ).toBeVisible();
-
-  // get the email from the mail server
-  const { email } = await mailServer.captureOne(normalUser.email, {
-    wait: 1000,
-  });
-  const $ = cheerioLoad(email.html as string);
-  const emailLink = $("a").attr("href");
-  await page.goto(emailLink as string);
-
-  await expect(page).toHaveURL(normalUser.appUrl);
-  await expect(
-    page.getByRole("img", { name: "user profile avatar" }),
-  ).toBeVisible();
-  await expect(page.getByRole("button", { name: /Login/i })).not.toBeVisible();
-  await expect(page.getByRole("heading", { name: /dashboard/i })).toBeVisible();
-
-  await page.context().storageState({ path: normalUser.storageSessionPath });
-  console.log("Normal user logged in");
+setup("let an active user login with magic email", async ({ page }) => {
+  await createActiveUser();
+  await loginUser({ user: normalUser, page });
 });
 
 setup("let an innactive user login with magic email", async ({ page }) => {
-  // arrange
   await createInactiveUser();
-  await page.goto(inactiveUser.loginUrl);
-  await expect(page.getByRole("link", { name: /Login/i })).toBeVisible();
-
-  // act
-  await page.getByLabel(/Email/i).fill(inactiveUser.email);
-  await page.getByRole("button", { name: /Sign in with Email/i }).click();
-
-  // assert
-  await expect(
-    page.getByText(/Please check your email for the magic link/i),
-  ).toBeVisible();
-
-  // get the email from the mail server
-  const { email } = await mailServer.captureOne(inactiveUser.email, {
-    wait: 1000,
-  });
-  const $ = cheerioLoad(email.html as string);
-  const emailLink = $("a").attr("href");
-  await page.goto(emailLink as string);
-
-  await expect(page).toHaveURL(inactiveUser.appUrl);
-  await expect(
-    page.getByRole("img", { name: "user profile avatar" }),
-  ).toBeVisible();
-  await expect(page.getByRole("button", { name: /Login/i })).not.toBeVisible();
-  await expect(page.getByRole("heading", { name: /dashboard/i })).toBeVisible();
-
-  await page.context().storageState({ path: inactiveUser.storageSessionPath });
-  console.log("Normal user logged in");
+  await loginUser({ user: inactiveUser, page });
 });

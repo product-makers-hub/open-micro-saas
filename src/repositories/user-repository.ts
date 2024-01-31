@@ -30,7 +30,7 @@ export const createOrUpdateUser = async ({
   email,
   name,
   role,
-  isActive = true,
+  isActive = false,
   emailVerified,
   image,
 }: User) => {
