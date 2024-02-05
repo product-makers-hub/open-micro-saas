@@ -1,4 +1,4 @@
-import { getUsersAction } from "@/app/admin/dashboard/user-management/actions";
+import { getUsersAction } from "../actions";
 
 import { SelectRole } from "./select-role";
 
