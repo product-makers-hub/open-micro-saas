@@ -1,5 +1,5 @@
 export const authConfig = {
-  loginUrl: "/auth/login",
+  loginUrl: "/login",
   normalUserCallbackUrl: "/dashboard",
   adminUserCallbackUrl: "/admin/dashboard",
 };

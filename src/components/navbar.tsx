@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { UserDropdown } from "./user-dropdown";
 import { ThemeToggle } from "./theme-toggle";
-import { siteMetadata, publicNavLinks } from "@/config";
+import { siteMetadata, publicNavLinks, authConfig } from "@/config";
 
 export const Navbar = () => {
   const { status } = useAuth();
@@ -62,7 +62,7 @@ export const Navbar = () => {
           <span className="loading loading-spinner loading-sm" />
         )}
         {status === "unauthenticated" && (
-          <Link href="/auth/login" className="btn">
+          <Link href={authConfig.loginUrl} className="btn">
             Login
           </Link>
         )}
