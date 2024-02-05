@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-import { createPortalSession } from "@/app/pricing/actions";
+import { createPortalSession } from "@/app/(public)/pricing/actions";
 
 export const BillingButton = () => {
   const openCustomerPortal = async () => {
