@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Pricing } from "@/components/landing-page/pricing";
+import { Pricing } from "../_components/pricing";
 
 import { paymentsConfig } from "@/config";
 

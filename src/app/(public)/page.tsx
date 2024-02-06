@@ -1,10 +1,10 @@
-import { HeroWithFigure } from "@/components/landing-page/hero/hero-with-figure";
-import { FeaturesSection } from "@/components/landing-page/features";
-import { HowItWorks } from "@/components/landing-page/how-it-works";
-import { WhyChooseUs } from "@/components/landing-page/why-choose-us";
-import { CallToAction } from "@/components/landing-page/call-to-action";
-import { Footer } from "@/components/landing-page/footer";
-import { Pricing } from "@/components/landing-page/pricing";
+import { HeroWithFigure } from "./_components/hero/hero-with-figure";
+import { FeaturesSection } from "./_components/features";
+import { HowItWorks } from "./_components/how-it-works";
+import { WhyChooseUs } from "./_components/why-choose-us";
+import { CallToAction } from "./_components/call-to-action";
+import { Footer } from "./_components/footer";
+import { Pricing } from "./_components/pricing";
 
 export default function Home() {
   return (
