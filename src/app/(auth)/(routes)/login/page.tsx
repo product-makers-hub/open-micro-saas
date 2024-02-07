@@ -1,40 +1,46 @@
 "use client";
 
-import React from "react";
+import React, { useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import { authConfig } from "@/config";
 import { Providers } from "@/components/providers";
+import { getHumanErrorMessage } from "@/libs/auth/auth-errors-utils";
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
   const [loginError, setLoginError] = React.useState<string | null>("");
   const [isEmailLoginSuccess, setIsEmailLoginSuccess] = React.useState<
     boolean | undefined
   >(false);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleSubmit = async (formData: FormData) => {
-    try {
-      setIsLoading(true);
+    startTransition(() => {
+      setLoginError(null);
+      setIsEmailLoginSuccess(false);
 
-      const email = formData.get("email");
-
-      const res = await signIn("email", {
-        email,
+      signIn("email", {
+        email: formData.get("email") as string,
         callbackUrl: authConfig.normalUserCallbackUrl,
         redirect: false,
-      });
-
-      if (res) {
-        setLoginError(res.error);
-        setIsEmailLoginSuccess(res?.ok);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
+      })
+        .then((res) => {
+          console.log(res);
+          if (res?.error) {
+            setLoginError("The e-mail could not be sent. Please try again.");
+          } else {
+            setIsEmailLoginSuccess(true);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   };
+
+  const errorMessage = loginError || searchParams.get("error");
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -52,10 +58,12 @@ export default function LoginPage() {
             </div>
           </div>
         )}
-        {loginError && (
+        {errorMessage && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
             <strong className="block font-bold">Error!</strong>
-            <span className="block sm:inline"> {loginError}</span>
+            <span className="block sm:inline">
+              {getHumanErrorMessage(errorMessage)}
+            </span>
           </div>
         )}
         <form action={handleSubmit} className="mt-8 space-y-6">
@@ -81,7 +89,7 @@ export default function LoginPage() {
             <button
               className="group relative w-full flex justify-center py-2 px-4 btn btn-primary"
               type="submit"
-              disabled={isLoading}
+              disabled={isPending}
             >
               Sign in with Email
             </button>
