@@ -28,6 +28,7 @@
     "@prisma/client": "^5.7.1",
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.4.0",
+    "crisp-sdk-web": "^1.0.21",
     "form-data": "^4.0.0",
     "mailgun.js": "^10.0.0",
     "micro": "^10.0.1",
