@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 import { AuthProvider } from "@/components/auth-provider";
-
+import { Analytics } from "@/components/analytics/analytics";
 import { siteMetadata } from "@/config/site-metadata-config";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,6 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Analytics />
       <AuthProvider>
         <body className={inter.className}>
           <Toaster />
