@@ -3,6 +3,12 @@ import { test, expect } from "@playwright/test";
 import { siteMetadata } from "@/config";
 
 test.describe("Layout logged out user", () => {
+  test("should show the page title", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(page).toHaveTitle(siteMetadata.title);
+  });
+
   test("should display the navbar", async ({ page }) => {
     await page.goto("/");
 
