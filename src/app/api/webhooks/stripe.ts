@@ -3,7 +3,10 @@ import { buffer } from "micro";
 import Stripe from "stripe";
 
 import { stripe } from "@/libs/stripe/stripe";
-import { activeUserByStripeCustomerId } from "@/repositories/user-repository";
+import {
+  activeUserByStripeCustomerId,
+  desactiveUserByStripeCustomerId,
+} from "@/repositories/user-repository";
 
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET as string;
 
@@ -44,6 +47,12 @@ export default async function POST(
         await activeUserByStripeCustomerId(subscription.customer.toString());
         break;
       }
+      case "customer.subscription.deleted":
+        const subscription = event.data.object as Stripe.Subscription;
+
+        await desactiveUserByStripeCustomerId(subscription.customer.toString());
+        break;
+
       // ... handle other event types
       default:
         console.log(`Unhandled event type ${event.type}`);

@@ -127,3 +127,16 @@ export const activeUserByStripeCustomerId = async (
     },
   });
 };
+
+export const desactiveUserByStripeCustomerId = async (
+  stripeCustomerId: string,
+) => {
+  return await prisma.user.update({
+    where: {
+      stripeCustomerId: stripeCustomerId,
+    },
+    data: {
+      isActive: false,
+    },
+  });
+};
