@@ -8,7 +8,7 @@ export default function DashboardPage() {
   if (status === "loading") return <p>Loading...</p>;
 
   return (
-    <section className="px-8 py-8">
+    <section>
       <header>
         <div className="">
           <h1 className="text-2xl font-semibold">Dashboard</h1>

@@ -29,6 +29,24 @@ export const publicNavLinks = [
   },
 ];
 
+export const adminNavLinks = [
+  {
+    title: "Dashboard",
+    url: "/admin/dashboard",
+  },
+  {
+    title: "User Management",
+    url: "/admin/dashboard/user-management",
+  },
+];
+
+export const authenticatedUserNavLinks = [
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+  },
+];
+
 export const landingPageContent = {
   heroSection: {
     headline: "Lorem Ipsum Dolor Sit Amet",

@@ -3,13 +3,14 @@ import { test, expect } from "@playwright/test";
 import { normalUser } from "../../data/normal-user";
 import { inactiveUser } from "../../data/inactive-user";
 import { ADMIN_ROLE_NAME, USER_ROLE_NAME } from "@/consts/roles-consts";
+import { authConfig } from "@/config";
 
 test.describe("User management", () => {
   test("admin user can navigate to user management page", async ({ page }) => {
-    await page.goto("/admin/dashboard");
+    await page.goto(authConfig.adminUserCallbackUrl);
 
     await page
-      .getByRole("navigation", { name: /drawer/i })
+      .getByRole("navigation", { name: /main navbar/i })
       .getByRole("link", { name: /user management/i })
       .click();
 

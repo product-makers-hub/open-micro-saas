@@ -2,14 +2,10 @@
 
 import Link from "next/link";
 
-import { useAuth } from "@/hooks/use-auth";
-import { UserDropdown } from "./user-dropdown";
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from "../theme-toggle";
 import { siteMetadata, publicNavLinks, authConfig } from "@/config";
 
-export const Navbar = () => {
-  const { status } = useAuth();
-
+export const PublicNavbar = () => {
   return (
     <nav className="navbar bg-base-200" aria-label="main navbar">
       <div className="navbar-start">
@@ -58,15 +54,9 @@ export const Navbar = () => {
         <div className="lg:px-2">
           <ThemeToggle />
         </div>
-        {status === "loading" && (
-          <span className="loading loading-spinner loading-sm" />
-        )}
-        {status === "unauthenticated" && (
-          <Link href={authConfig.loginUrl} className="btn">
-            Login
-          </Link>
-        )}
-        {status === "authenticated" && <UserDropdown />}
+        <Link href={authConfig.loginUrl} className="btn">
+          Login
+        </Link>
       </div>
     </nav>
   );

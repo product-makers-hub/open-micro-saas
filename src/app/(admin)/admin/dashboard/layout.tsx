@@ -2,7 +2,6 @@ import React from "react";
 import { redirect } from "next/navigation";
 
 import { authConfig } from "@/config";
-import { Drawer } from "@/components/drawer";
 import { getIsAdmin } from "@/libs/auth/auth-utils";
 
 export default async function AdminDashboardLayout({
@@ -16,5 +15,5 @@ export default async function AdminDashboardLayout({
     redirect(authConfig.loginUrl);
   }
 
-  return <Drawer>{children}</Drawer>;
+  return <>{children}</>;
 }

@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import daisyui from "daisyui";
 
+// Create your custom theme using the Theme generator tool here: https://daisyui.com/theme-generator/
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
