@@ -4,7 +4,9 @@ Open Micro SaaS is an open-source, Next.js-based Software as a Service (SaaS) st
 
 ---
 
-⚠️ This project is still in progress but **`I'm actively working on it 👨‍💻`**.
+⚠️ This project is still in progress. It's not 100% ready for production use yet. ⚠️
+
+Please check the [official roadmap](https://open-micro-saas-docs.vercel.app/roadmap) to see the project's progress and the upcoming features.
 
 ---
 
@@ -16,12 +18,7 @@ Please check the official [open-micro-saas documentation](https://open-micro-saa
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the Project.
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
-3. Make sure that you add tests for your feature. This is required.
-4. Commit your Changes (`git commit -m 'feat: add some AmazingFeature'`). Please use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for your commit messages. This is required.
-5. Push to the Branch (`git push origin feature/AmazingFeature`).
-6. Open a Pull Request.
+Please follow the [contribution guidelines](https://open-micro-saas-docs.vercel.app/contribute) to contribute to the project.
 
 Any question or suggestion? Feel free to open an issue.
 
