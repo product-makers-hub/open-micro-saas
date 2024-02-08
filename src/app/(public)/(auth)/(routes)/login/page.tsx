@@ -4,7 +4,7 @@ import React, { useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 import { Providers } from "@/components/providers";
 import { getHumanErrorMessage } from "@/libs/auth/auth-errors-utils";
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 import { useAuth } from "@/hooks/use-auth";
 import { createCheckoutSession } from "@/app/(public)/pricing/actions";
 

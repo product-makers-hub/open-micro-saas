@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 import {
   OAUTH_SIGNIN_ERROR,
   EMAIL_SIGNIN_ERROR,

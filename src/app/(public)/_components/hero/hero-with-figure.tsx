@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { landingPageContent } from "@/config";
+import { landingPageContent } from "@/config/landing-page-config";
 
 export const HeroWithFigure = () => {
   return (

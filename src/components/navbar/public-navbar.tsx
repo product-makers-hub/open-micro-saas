@@ -3,7 +3,9 @@
 import Link from "next/link";
 
 import { ThemeToggle } from "../theme-toggle";
-import { siteMetadata, publicNavLinks, authConfig } from "@/config";
+import { siteMetadata } from "@/config/site-metadata-config";
+import { publicNavLinks } from "@/config/navigation-links-config";
+import { authConfig } from "@/config/auth-config";
 
 export const PublicNavbar = () => {
   return (

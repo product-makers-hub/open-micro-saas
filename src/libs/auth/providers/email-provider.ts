@@ -1,6 +1,6 @@
 import EmailProvider from "next-auth/providers/email";
 
-import { mailConfig } from "@/config";
+import { mailConfig } from "@/config/mail-config";
 
 export const getEmailProvider = () =>
   EmailProvider({

@@ -1,4 +1,4 @@
-import { paymentsConfig } from "@/config";
+import { paymentsConfig } from "@/config/payments-config";
 import { formatAmountForDisplay } from "@/libs/stripe/stripe-helpers";
 import { SubscribeButton } from "./subscribe-button";
 

@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-import { mailConfig } from "@/config";
+import { mailConfig } from "@/config/mail-config";
 
 if (!process.env.RESEND_API_KEY) {
   console.warn("RESEND_API_KEY is not set");

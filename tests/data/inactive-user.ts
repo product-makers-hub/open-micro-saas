@@ -1,4 +1,4 @@
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 
 export const inactiveUser = {
   email: "inactive-user@my-saas.com",

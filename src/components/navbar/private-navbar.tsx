@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { UserDropdown } from "@/components/user-dropdown";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { siteMetadata } from "@/config/site-metadata-config";
 import {
-  siteMetadata,
   adminNavLinks,
   authenticatedUserNavLinks,
-  authConfig,
-} from "@/config";
+} from "@/config/navigation-links-config";
+import { authConfig } from "@/config/auth-config";
 import { ADMIN_ROLE_NAME } from "@/consts/roles-consts";
 
 export const PrivateNavbar = () => {

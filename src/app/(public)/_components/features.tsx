@@ -1,4 +1,4 @@
-import { landingPageContent } from "@/config";
+import { landingPageContent } from "@/config/landing-page-config";
 
 export const FeaturesSection = () => {
   const { title, features } = landingPageContent.featuresOverview;

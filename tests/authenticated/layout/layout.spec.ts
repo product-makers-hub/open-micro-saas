@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { siteMetadata } from "@/config";
+import { siteMetadata } from "@/config/site-metadata-config";
 
 test.describe("General authenticated layout", () => {
   test("should display the header", async ({ page }) => {

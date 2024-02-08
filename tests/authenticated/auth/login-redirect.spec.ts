@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 
 test.describe("Login page authenticated user", () => {
   test("should redirect to the admin user callback url page when the admin is authenticated and navigates to the login page", async ({

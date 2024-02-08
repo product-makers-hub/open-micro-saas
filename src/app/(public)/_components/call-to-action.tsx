@@ -1,4 +1,4 @@
-import { landingPageContent } from "@/config";
+import { landingPageContent } from "@/config/landing-page-config";
 
 export const CallToAction = () => {
   const { text, cta } = landingPageContent.callToAction;

@@ -1,5 +1,5 @@
 import React from "react";
-import { landingPageContent } from "@/config";
+import { landingPageContent } from "@/config/landing-page-config";
 
 export const Footer = () => {
   const { links } = landingPageContent.footer;

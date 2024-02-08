@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 import { normalUser } from "../../data/normal-user";
 import { inactiveUser } from "../../data/inactive-user";
 import { ADMIN_ROLE_NAME, USER_ROLE_NAME } from "@/consts/roles-consts";
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 
 test.describe("User management", () => {
   test("admin user can navigate to user management page", async ({ page }) => {

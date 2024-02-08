@@ -4,7 +4,7 @@ import type { Stripe } from "stripe";
 import { headers } from "next/headers";
 import { getServerSession } from "next-auth";
 
-import { paymentsConfig } from "@/config";
+import { paymentsConfig } from "@/config/payments-config";
 import { formatAmountForStripe } from "@/libs/stripe/stripe-helpers";
 import { stripe } from "@/libs/stripe/stripe";
 import { authOptions } from "@/libs/auth/auth-options";

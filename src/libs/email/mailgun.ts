@@ -1,7 +1,7 @@
 import formData from "form-data";
 import Mailgun from "mailgun.js";
 
-import { mailConfig } from "@/config";
+import { mailConfig } from "@/config/mail-config";
 
 const mailgunApiKey = process.env.MAILGUN_API_KEY;
 const isTest = process.env.NODE_ENV === "test";

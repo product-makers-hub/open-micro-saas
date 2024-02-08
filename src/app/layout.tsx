@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { AuthProvider } from "@/components/auth-provider";
 
-import { siteMetadata } from "@/config";
+import { siteMetadata } from "@/config/site-metadata-config";
 
 const inter = Inter({ subsets: ["latin"] });
 

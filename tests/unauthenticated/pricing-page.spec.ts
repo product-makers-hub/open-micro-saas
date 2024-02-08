@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { paymentsConfig } from "@/config";
+import { paymentsConfig } from "@/config/payments-config";
 
 test.describe("Pricing page", () => {
   test("should display pricing page", async ({ page }) => {

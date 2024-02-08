@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 
 test.describe("Protected routes", () => {
   test("should redirect to login page when trying to access to /dashboard route", async ({

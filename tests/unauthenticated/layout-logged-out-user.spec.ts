@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { siteMetadata } from "@/config";
+import { siteMetadata } from "@/config/site-metadata-config";
 
 test.describe("Layout logged out user", () => {
   test("should show the page title", async ({ page }) => {

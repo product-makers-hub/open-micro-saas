@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 
 import { normalUser } from "../../data/normal-user";
 

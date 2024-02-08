@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import { PublicNavbar } from "@/components/navbar/public-navbar";
 import { getIsAuth } from "@/libs/auth/auth-utils";
-import { authConfig } from "@/config";
+import { authConfig } from "@/config/auth-config";
 
 export default async function Layout({
   children,
