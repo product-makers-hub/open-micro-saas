@@ -17,7 +17,8 @@
     "db:start": "docker-compose up -d",
     "db:migrate:dev": "prisma migrate dev",
     "prisma:generate": "prisma generate",
-    "prisma:seed": "prisma db seed"
+    "prisma:seed": "prisma db seed",
+    "script:create:admin": "dotenv tsx ./scripts/create-admin-user-script.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seeds/seed.ts"
