@@ -1,14 +1,10 @@
 # Open Micro Saas, the Next.js SaaS toolkit
 
-Open Micro SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter kit designed to help you launch your SaaS applications faster and more efficiently. It's packed with essential features like user authentication, a billing system, and an admin dashboard.
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
----
+[![Beta Version](https://img.shields.io/badge/status-beta-yellow.svg)](https://open-micro-saas-docs.vercel.app/roadmap)
 
-⚠️ This project is still in progress. It's not 100% ready for production use yet. ⚠️
-
-Please check the [official roadmap](https://open-micro-saas-docs.vercel.app/roadmap) to see the project's progress and the upcoming features.
-
----
+Open Micro SaaS is an open-source, Next.js-based Software as a Service (SaaS) starter kit designed to help you launch your SaaS applications faster and more efficiently.
 
 ## Start building your Micro SaaS application today
 
@@ -16,15 +12,11 @@ Please check the official [open-micro-saas documentation](https://open-micro-saa
 
 ## Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
 Please follow the [contribution guidelines](https://open-micro-saas-docs.vercel.app/contribute) to contribute to the project.
-
-Any question or suggestion? Feel free to open an issue.
 
 ## License
 
-Distributed under the GPL-2.0 License. See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
