@@ -5,7 +5,7 @@ import { landingPageContent } from "@/config/landing-page-config";
 export const HeroWithFigure = () => {
   return (
     <div className="hero bg-base-200 py-8">
-      <div className="hero-content flex-col lg:flex-row">
+      <div className="hero-content flex-col md:gap-8 lg:flex-row">
         <Image
           src={landingPageContent.heroSection.figureImage}
           alt="Hero Figure"

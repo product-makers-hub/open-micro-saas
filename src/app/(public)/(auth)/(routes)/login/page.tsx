@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useTransition } from "react";
+import React from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
@@ -10,34 +10,39 @@ import { getHumanErrorMessage } from "@/libs/auth/auth-errors-utils";
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = React.useState(false);
   const [loginError, setLoginError] = React.useState<string | null>("");
   const [isEmailLoginSuccess, setIsEmailLoginSuccess] = React.useState<
     boolean | undefined
   >(false);
 
-  const handleSubmit = async (formData: FormData) => {
-    startTransition(() => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    setIsLoading(true);
+    try {
       setLoginError(null);
       setIsEmailLoginSuccess(false);
 
-      signIn("email", {
+      const res = await signIn("email", {
         email: formData.get("email") as string,
         callbackUrl: authConfig.normalUserCallbackUrl,
         redirect: false,
-      })
-        .then((res) => {
-          console.log(res);
-          if (res?.error) {
-            setLoginError("The e-mail could not be sent. Please try again.");
-          } else {
-            setIsEmailLoginSuccess(true);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
+      });
+
+      if (res?.error) {
+        setLoginError("The e-mail could not be sent. Please try again.");
+      } else {
+        setIsEmailLoginSuccess(true);
+      }
+    } catch (error) {
+      console.error("Error in login", error);
+      setLoginError("The e-mail could not be sent. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const errorMessage = loginError || searchParams.get("error");
@@ -66,7 +71,7 @@ export default function LoginPage() {
             </span>
           </div>
         )}
-        <form action={handleSubmit} className="mt-8 space-y-6">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <input name="remember" type="hidden" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -89,9 +94,13 @@ export default function LoginPage() {
             <button
               className="group relative w-full flex justify-center py-2 px-4 btn btn-primary"
               type="submit"
-              disabled={isPending}
+              disabled={isLoading}
             >
-              Sign in with Email
+              {isLoading ? (
+                <span className="loading loading-spinner loading-xs" />
+              ) : (
+                "Sign in with Email"
+              )}
             </button>
           </div>
         </form>
