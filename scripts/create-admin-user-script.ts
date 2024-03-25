@@ -1,6 +1,6 @@
+import { UserRole } from "@prisma/client";
+
 import { createOrUpdateUser } from "@/repositories/user-repository";
-import { createOrUpdateRole } from "@/repositories/role-repository";
-import { ADMIN_ROLE_ID } from "@/consts/roles-consts";
 
 const adminEmail = process.env.ADMIN_EMAIL;
 
@@ -11,19 +11,10 @@ async function makeAdminUser() {
     );
   }
 
-  const roleAdmin = await createOrUpdateRole({
-    id: ADMIN_ROLE_ID,
-    name: "admin",
-  });
-
-  console.log({ roleAdmin });
-
   const userAdmin = await createOrUpdateUser({
     email: adminEmail,
     name: "admin",
-    role: {
-      id: ADMIN_ROLE_ID,
-    },
+    role: UserRole.ADMIN,
   });
 
   console.log({ userAdmin });

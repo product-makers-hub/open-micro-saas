@@ -1,11 +1,12 @@
 "use server";
 
+import { UserRole } from "@prisma/client";
+
 import {
   toggleUserAccessByEmail,
   getManyUsers,
   updateUserRoleByEmail,
 } from "@/repositories/user-repository";
-import { UserRole } from "@/consts/roles-consts";
 
 export const getUsersAction = async () => {
   const users = await getManyUsers();

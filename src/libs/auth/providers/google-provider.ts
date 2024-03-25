@@ -16,6 +16,7 @@ export const getGoogleProvider = () =>
         image: profile.picture,
         createdAt: new Date(),
         isActive: user?.isActive || true,
+        role: user?.role || "USER",
       };
     },
   });

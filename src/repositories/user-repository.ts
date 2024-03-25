@@ -1,6 +1,6 @@
 import prisma from "@/libs/prisma";
 
-import { UserRole } from "@/consts/roles-consts";
+import { UserRole } from "@prisma/client";
 
 interface User {
   email: string;
@@ -8,15 +8,12 @@ interface User {
   isActive?: boolean;
   emailVerified?: Date | null;
   image?: string;
-  role: {
-    id: number;
-  };
+  role: UserRole;
 }
 
 export const getUserByEmail = async (email: string) => {
   return await prisma.user.findUnique({
     where: { email },
-    include: { role: true },
   });
 };
 
@@ -43,11 +40,7 @@ export const createOrUpdateUser = async ({
       isActive,
       emailVerified,
       image,
-      role: {
-        connect: {
-          id: role.id,
-        },
-      },
+      role,
     },
   });
 };
@@ -60,11 +53,7 @@ export const getManyUsers = async () => {
       name: true,
       createdAt: true,
       isActive: true,
-      role: {
-        select: {
-          name: true,
-        },
-      },
+      role: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -90,11 +79,7 @@ export const updateUserRoleByEmail = async (email: string, role: UserRole) => {
     return await prisma.user.update({
       where: { email },
       data: {
-        role: {
-          connect: {
-            name: role,
-          },
-        },
+        role: role,
       },
     });
   } catch (error) {

@@ -9,7 +9,6 @@ import { normalUser } from "./data/normal-user";
 import { inactiveUser } from "./data/inactive-user";
 import { truncateDb } from "../prisma/truncate-db";
 import {
-  createRoles,
   createInactiveUser,
   createAdminUser,
   createActiveUser,
@@ -31,7 +30,6 @@ let mailServer: MailServer;
 // Is closed but still not working.
 setup.beforeAll(async () => {
   await truncateDb();
-  await createRoles();
   mailServer = smtpTester.init(4025);
 });
 

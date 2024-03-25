@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { UserRole } from "@prisma/client";
 
 import { normalUser } from "../../data/normal-user";
 import { inactiveUser } from "../../data/inactive-user";
-import { ADMIN_ROLE_NAME, USER_ROLE_NAME } from "@/consts/roles-consts";
 import { authConfig } from "@/config/auth-config";
 
 test.describe("User management", () => {
@@ -71,7 +71,7 @@ test.describe("User management", () => {
       userRow.getByRole("cell", { name: "Active", exact: true }),
     ).toBeVisible();
     await expect(
-      userRow.getByRole("cell", { name: USER_ROLE_NAME, exact: true }),
+      userRow.getByRole("cell", { name: UserRole.USER, exact: true }),
     ).toBeVisible();
   });
 
@@ -87,11 +87,11 @@ test.describe("User management", () => {
     await expect(userRow).toBeVisible();
 
     const userRoleSelect = userRow
-      .getByRole("cell", { name: USER_ROLE_NAME })
+      .getByRole("cell", { name: UserRole.USER })
       .getByRole("combobox");
     await expect(userRoleSelect).toBeVisible();
 
-    await userRoleSelect.selectOption({ label: ADMIN_ROLE_NAME });
+    await userRoleSelect.selectOption({ label: UserRole.ADMIN });
 
     await expect(page.getByText("User role was updated")).toBeVisible();
   });

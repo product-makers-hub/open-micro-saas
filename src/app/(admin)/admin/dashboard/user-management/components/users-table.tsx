@@ -37,9 +37,9 @@ export const UsersTable = async () => {
               <td>{user.isActive ? "Active" : "Inactive"}</td>
               <td>{user.email}</td>
               <td>{user.name}</td>
-              <td aria-label={user.role.name}>
+              <td aria-label={user.role}>
                 <SelectRole
-                  userRoleName={user.role.name}
+                  userRoleName={user.role}
                   email={user.email as string}
                 />
               </td>

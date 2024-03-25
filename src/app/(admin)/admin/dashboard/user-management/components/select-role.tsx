@@ -3,12 +3,12 @@
 import { ChangeEvent, useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
+import { UserRole } from "@prisma/client";
 
-import { ADMIN_ROLE_NAME, USER_ROLE_NAME } from "@/consts/roles-consts";
 import { updateUserRoleAction } from "../actions";
 
 interface SelectRoleProps {
-  userRoleName: string;
+  userRoleName: UserRole;
   email: string;
 }
 
@@ -41,8 +41,8 @@ export const SelectRole = ({ userRoleName, email }: SelectRoleProps) => {
       defaultValue={userRoleName}
       onChange={handleChange}
     >
-      <option value={ADMIN_ROLE_NAME}>{ADMIN_ROLE_NAME}</option>
-      <option value={USER_ROLE_NAME}>{USER_ROLE_NAME}</option>
+      <option value={UserRole.ADMIN}>{UserRole.ADMIN}</option>
+      <option value={UserRole.USER}>{UserRole.USER}</option>
     </select>
   );
 };

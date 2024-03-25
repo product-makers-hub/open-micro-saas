@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { UserRole } from "@prisma/client";
 
 import { useAuth } from "@/hooks/use-auth";
 import { UserDropdown } from "@/components/user-dropdown";
@@ -11,13 +12,11 @@ import {
   authenticatedUserNavLinks,
 } from "@/config/navigation-links-config";
 import { authConfig } from "@/config/auth-config";
-import { ADMIN_ROLE_NAME } from "@/consts/roles-consts";
 
 export const PrivateNavbar = () => {
   const { status, user } = useAuth();
 
-  const isAdmin =
-    status === "authenticated" && user?.role?.name === ADMIN_ROLE_NAME;
+  const isAdmin = status === "authenticated" && user?.role === UserRole.ADMIN;
 
   const navigationLinks = isAdmin ? adminNavLinks : authenticatedUserNavLinks;
   const homeLink = isAdmin

@@ -2,22 +2,20 @@
 
 // Docs: https://next-auth.js.org/getting-started/typescript
 import NextAuth, { DefaultSession } from "next-auth";
+import { UserRole } from "@prisma/client";
 
-interface Role {
-  name: string;
-  id: number | undefined;
-}
+export type ExtendedUser = DefaultSession["user"] & {
+  publicId: string;
+  role: UserRole;
+  isActive: boolean;
+  stripeCustomerId: string | null;
+};
 
 declare module "next-auth" {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
-    user: {
-      publicId: string;
-      role: Role;
-      isActive: boolean;
-      stripeCustomerId: string | null;
-    } & DefaultSession["user"];
+    user: ExtendedUser;
   }
 }
