@@ -1,5 +1,4 @@
-import type { NextAuthOptions } from "next-auth";
-import type { Adapter } from "next-auth/adapters";
+import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { providers } from "@/libs/auth/providers/auth-providers";
@@ -10,9 +9,12 @@ import {
 } from "@/repositories/user-repository";
 import { stripe } from "@/libs/stripe/stripe";
 
-export const authOptions: NextAuthOptions = {
+export const {
+  handlers: { GET, POST },
+  auth,
+} = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma) as Adapter,
+  adapter: PrismaAdapter(prisma),
   providers,
   pages: {
     signIn: "/login",
@@ -76,4 +78,4 @@ export const authOptions: NextAuthOptions = {
     },
   },
   debug: false,
-};
+});

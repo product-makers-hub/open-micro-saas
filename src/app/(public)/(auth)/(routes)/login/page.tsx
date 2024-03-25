@@ -26,7 +26,7 @@ export default function LoginPage() {
       setLoginError(null);
       setIsEmailLoginSuccess(false);
 
-      const res = await signIn("email", {
+      const res = await signIn("nodemailer", {
         email: formData.get("email") as string,
         callbackUrl: authConfig.normalUserCallbackUrl,
         redirect: false,

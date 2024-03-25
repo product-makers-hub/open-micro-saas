@@ -2,12 +2,11 @@
 
 import type { Stripe } from "stripe";
 import { headers } from "next/headers";
-import { getServerSession } from "next-auth";
 
 import { paymentsConfig } from "@/config/payments-config";
 import { formatAmountForStripe } from "@/libs/stripe/stripe-helpers";
 import { stripe } from "@/libs/stripe/stripe";
-import { authOptions } from "@/libs/auth/auth-options";
+import { getSession } from "@/libs/auth/auth-utils";
 
 interface ReturnData {
   client_secret: string | null;
@@ -17,7 +16,7 @@ interface ReturnData {
 export async function createCheckoutSession(
   data: FormData,
 ): Promise<ReturnData> {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
 
   if (!session?.user) {
     throw new Error("No session found");
@@ -72,7 +71,7 @@ export async function createCheckoutSession(
 }
 
 export async function createPortalSession() {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
 
   if (!session?.user) {
     throw new Error("No session found");

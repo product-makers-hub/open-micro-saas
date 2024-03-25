@@ -1,8 +1,7 @@
 import React from "react";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { authOptions } from "@/libs/auth/auth-options";
+import { getSession } from "@/libs/auth/auth-utils";
 import { authConfig } from "@/config/auth-config";
 
 export default async function AuthLayout({
@@ -10,7 +9,7 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
 
   if (session) {
     redirect(authConfig.normalUserCallbackUrl);

@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
-import {
-  ClientSafeProvider,
-  LiteralUnion,
-  getProviders,
-  signIn,
-} from "next-auth/react";
-import { BuiltInProviderType } from "next-auth/providers/index";
+import { signIn } from "next-auth/react";
+
+const providers = [
+  {
+    name: "Google",
+    id: "google",
+  },
+];
 
 export const Providers = () => {
-  const [providers, setProviders] = useState<Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null>(null);
-
-  useEffect(() => {
-    const getProvidersInt = async () => {
-      const providers = await getProviders();
-      setProviders(providers);
-    };
-    getProvidersInt();
-  }, []);
-
   return (
     <>
       {providers &&
