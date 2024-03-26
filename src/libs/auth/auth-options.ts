@@ -13,6 +13,8 @@ export const {
   handlers: { GET, POST },
   auth,
 } = NextAuth({
+  // trustHost doc: https://authjs.dev/reference/core/errors/#untrustedhost
+  trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   providers,
