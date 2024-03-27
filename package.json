@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore .",
-    "prepare": "husky install",
     "test": "playwright test --max-failures=1",
     "test:ui": "playwright test --ui",
     "test:db:start": "docker-compose -f docker-compose.test.yml up -d",
@@ -58,14 +57,18 @@
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-filenames-simple": "^0.9.0",
-    "husky": "^8.0.3",
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prisma": "^5.7.1",
+    "simple-git-hooks": "^2.11.1",
     "smtp-tester": "^2.1.0",
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.0",
     "typescript": "^5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npm run lint",
+    "pre-push": "npm run lint && npm run test"
   }
 }
