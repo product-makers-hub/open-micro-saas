@@ -7,7 +7,7 @@ const providers = [
   },
 ];
 
-export const Providers = () => {
+export const AuthProviders = () => {
   return (
     <>
       {providers &&

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import { authConfig } from "@/config/auth-config";
-import { Providers } from "@/components/providers";
+import { AuthProviders } from "@/components/auth/auth-providers";
 import { getHumanErrorMessage } from "@/libs/auth/auth-errors-utils";
 
 export default function LoginPage() {
@@ -105,7 +105,7 @@ export default function LoginPage() {
           </div>
         </form>
         <p className="mt-2 text-center text-sm">Or sign in with</p>
-        <Providers />
+        <AuthProviders />
       </div>
     </div>
   );

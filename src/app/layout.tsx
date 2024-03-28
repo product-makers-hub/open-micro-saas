@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
-import { AuthProvider } from "@/components/auth-provider";
+import { SessionProvider } from "@/components/auth/session-provider";
 import { Analytics } from "@/components/analytics/analytics";
 import { Support } from "@/components/support/support";
 import { siteMetadata } from "@/config/site-metadata-config";
@@ -24,12 +24,12 @@ export default function RootLayout({
     <html lang="en">
       <Analytics />
       <Support />
-      <AuthProvider>
+      <SessionProvider>
         <body className={inter.className}>
           <Toaster />
           {children}
         </body>
-      </AuthProvider>
+      </SessionProvider>
     </html>
   );
 }
