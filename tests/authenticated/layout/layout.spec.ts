@@ -25,7 +25,7 @@ test.describe("General authenticated layout", () => {
     await page.goto("/");
 
     await expect(
-      page.getByRole("checkbox", { name: /toggle theme/i }),
+      page.getByRole("button", { name: /toggle theme/i }),
     ).toBeVisible();
   });
 
@@ -33,14 +33,14 @@ test.describe("General authenticated layout", () => {
     await page.goto("/");
 
     await expect(
-      page.getByRole("img", { name: /user profile avatar/i }),
+      page.getByRole("button", { name: /user menu/i }),
     ).toBeVisible();
   });
 
   test("should display the user dropdown menu", async ({ page }) => {
     await page.goto("/");
 
-    await page.getByRole("button", { name: /user profile avatar/i }).click();
+    await page.getByRole("button", { name: /user menu/i }).click();
 
     await expect(
       page.getByRole("link", { name: /admin dashboard/i }),

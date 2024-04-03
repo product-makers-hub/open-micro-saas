@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import { HeroWithFigure } from "./_components/hero/hero-with-figure";
 import { FeaturesSection } from "./_components/features";
 import { HowItWorks } from "./_components/how-it-works";
@@ -12,13 +13,13 @@ export default function Home() {
       <section id="hero" className="pb-8">
         <HeroWithFigure />
       </section>
-      <section id="features" className="py-12 my-8">
+      <section id="features" className="py-12">
         <FeaturesSection />
       </section>
-      <section id="call-to-action" className="bg-primary py-12">
+      <section id="call-to-action" className="py-12">
         <CallToAction />
       </section>
-
+      <Separator />
       <section id="how-it-works" className="py-12 my-8">
         <HowItWorks />
       </section>
@@ -26,7 +27,7 @@ export default function Home() {
       <section id="why-choose-us" className="py-12 my-8">
         <WhyChooseUs />
       </section>
-
+      <Separator />
       <section id="why-choose-us" className="py-12 my-8">
         <Pricing />
       </section>

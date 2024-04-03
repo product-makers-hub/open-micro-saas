@@ -67,6 +67,11 @@ export const landingPageContent = {
     cta: "Cum Soluta Nobis",
   },
   footer: {
-    links: ["Lorem", "Ipsum", "Dolor", "Sit"],
+    links: [
+      { title: "About", url: "#" },
+      { title: "Contact", url: "#" },
+      { title: "Privacy Policy", url: "#" },
+      { title: "Terms of Service", url: "#" },
+    ],
   },
 };

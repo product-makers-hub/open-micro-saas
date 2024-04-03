@@ -1,3 +1,12 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 import { getUsersAction } from "../actions";
 
 import { SelectRole } from "./select-role";
@@ -19,41 +28,41 @@ export const UsersTable = async () => {
 
   return (
     <div className="overflow-x-auto">
-      <table aria-label="users list" className="table table-md">
-        <thead>
-          <tr>
+      <Table aria-label="users list" className="table table-md">
+        <TableHeader>
+          <TableRow>
             {tableHeaders.map((header) => (
-              <th key={header}>{header}</th>
+              <TableHead key={header}>{header}</TableHead>
             ))}
-          </tr>
-        </thead>
-        <tbody>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {users?.map((user) => (
-            <tr
+            <TableRow
               key={user.email}
               className="hover"
               aria-label={user.email as string}
             >
-              <td>{user.isActive ? "Active" : "Inactive"}</td>
-              <td>{user.email}</td>
-              <td>{user.name}</td>
-              <td aria-label={user.role}>
+              <TableCell>{user.isActive ? "Active" : "Inactive"}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.name}</TableCell>
+              <TableCell aria-label={user.role}>
                 <SelectRole
                   userRoleName={user.role}
                   email={user.email as string}
                 />
-              </td>
-              <td>
+              </TableCell>
+              <TableCell align="center">
                 {user.createdAt.toLocaleString("eu", {
                   day: "2-digit",
                   month: "2-digit",
                   year: "numeric",
                 })}
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 };

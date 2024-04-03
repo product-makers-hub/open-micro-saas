@@ -3,10 +3,29 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 import { authConfig } from "@/config/auth-config";
 import { AuthProviders } from "@/components/auth/auth-providers";
 import { getHumanErrorMessage } from "@/libs/auth/auth-errors-utils";
+import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email(),
+});
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
@@ -16,18 +35,21 @@ export default function LoginPage() {
     boolean | undefined
   >(false);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
 
-    const formData = new FormData(event.currentTarget);
-
-    setIsLoading(true);
+  async function handleSubmit(values: z.infer<typeof loginSchema>) {
     try {
+      setIsLoading(true);
       setLoginError(null);
       setIsEmailLoginSuccess(false);
 
       const res = await signIn("nodemailer", {
-        email: formData.get("email") as string,
+        email: values.email,
         callbackUrl: authConfig.normalUserCallbackUrl,
         redirect: false,
       });
@@ -43,17 +65,17 @@ export default function LoginPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   const errorMessage = loginError || searchParams.get("error");
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center container">
+      <div className="max-w-md w-full space-y-6">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabol">
+          <Typography component="h2" className="mt-6 text-center">
             Sign in to your account
-          </h2>
+          </Typography>
         </div>
         {isEmailLoginSuccess && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
@@ -71,40 +93,35 @@ export default function LoginPage() {
             </span>
           </div>
         )}
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          <input name="remember" type="hidden" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text">Email</span>
-                </div>
-                <input
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="Email address"
-                  required
-                  className="input input-bordered w-full"
-                />
-              </label>
-            </div>
-          </div>
-          <div>
-            <button
-              className="group relative w-full flex justify-center py-2 px-4 btn btn-primary"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <span className="loading loading-spinner loading-xs" />
-              ) : (
-                "Sign in with Email"
+
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-8"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="john.doe@mail.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
-            </button>
-          </div>
-        </form>
-        <p className="mt-2 text-center text-sm">Or sign in with</p>
+            />
+            <div className="flex justify-center">
+              <Button disabled={isLoading} type="submit">
+                Sign in with Email
+              </Button>
+            </div>
+          </form>
+        </Form>
+
+        <Typography className="text-center">Or sign in with</Typography>
+
         <AuthProviders />
       </div>
     </div>

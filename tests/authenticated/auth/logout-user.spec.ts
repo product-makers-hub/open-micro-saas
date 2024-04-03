@@ -9,7 +9,7 @@ test.describe("Logout user", () => {
     await expect(page.getByRole("link", { name: /login/i })).not.toBeVisible();
 
     // act
-    await page.getByRole("button", { name: /user profile avatar/i }).click();
+    await page.getByRole("button", { name: /user menu/i }).click();
     await page.getByRole("button", { name: /logout/i }).click();
 
     // assert

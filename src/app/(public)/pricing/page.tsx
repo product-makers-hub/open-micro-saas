@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
   return (
-    <main className="py-24">
+    <main className="py-16">
       <Pricing />
     </main>
   );

@@ -71,9 +71,7 @@ const loginUser = async ({ user, page }: LoginUser) => {
 
   // assert after login
   await expect(page).toHaveURL(user.appUrl);
-  await expect(
-    page.getByRole("img", { name: "user profile avatar" }),
-  ).toBeVisible();
+  await expect(page.getByRole("button", { name: /user menu/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /Login/i })).not.toBeVisible();
 
   await page.context().storageState({ path: user.storageSessionPath });

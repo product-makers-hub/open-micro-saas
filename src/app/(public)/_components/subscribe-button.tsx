@@ -5,6 +5,7 @@ import Link from "next/link";
 import { authConfig } from "@/config/auth-config";
 import { useAuth } from "@/hooks/use-auth";
 import { createCheckoutSession } from "@/app/(public)/pricing/actions";
+import { Button } from "@/components/ui/button";
 
 interface SubscribeButtonProps {
   priceId: string;
@@ -42,15 +43,15 @@ export const SubscribeButton = ({
 
   if (isUnauthenticated) {
     return (
-      <Link className="btn btn-primary" href={authConfig.loginUrl}>
-        Sign in to subscribe
-      </Link>
+      <Button asChild variant="outline">
+        <Link href={authConfig.loginUrl}>Sign in to subscribe</Link>
+      </Button>
     );
   }
 
   return (
-    <button onClick={() => handleCheckout()} className="btn btn-primary">
+    <Button variant="outline" onClick={() => handleCheckout()}>
       {children}
-    </button>
+    </Button>
   );
 };

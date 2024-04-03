@@ -1,5 +1,7 @@
 import { signIn } from "next-auth/react";
 
+import { Button } from "../ui/button";
+
 const providers = [
   {
     name: "Google",
@@ -16,12 +18,13 @@ export const AuthProviders = () => {
 
           return (
             <div key={provider.name} className="mr-2">
-              <button
+              <Button
+                variant="secondary"
                 className="btn w-full"
                 onClick={() => signIn(provider.id)}
               >
                 Sign in with {provider.name}
-              </button>
+              </Button>
             </div>
           );
         })}

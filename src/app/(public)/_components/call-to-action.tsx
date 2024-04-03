@@ -1,14 +1,18 @@
 import { landingPageContent } from "@/config/landing-page-config";
+import { Typography } from "@/components/ui/typography";
+import { Button } from "@/components/ui/button";
 
 export const CallToAction = () => {
   const { text, cta } = landingPageContent.callToAction;
 
   return (
     <div className="container mx-auto text-center px-4">
-      <p className="text-xl md:text-2xl font-light text-white mb-6">{text}</p>
-      <button className="text-white bg-green-500 hover:bg-green-700 font-medium py-2 px-4 rounded-lg text-lg transition duration-300 ease-in-out">
+      <Typography component="h3" className="pb-4">
+        {text}
+      </Typography>
+      <Button variant="secondary" className="text-lg">
         {cta}
-      </button>
+      </Button>
     </div>
   );
 };

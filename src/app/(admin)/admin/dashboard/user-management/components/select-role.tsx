@@ -1,11 +1,18 @@
 "use client";
 
-import { ChangeEvent, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { UserRole } from "@prisma/client";
 
 import { updateUserRoleAction } from "../actions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface SelectRoleProps {
   userRoleName: UserRole;
@@ -20,12 +27,10 @@ const initialState = {
 export const SelectRole = ({ userRoleName, email }: SelectRoleProps) => {
   const [state, action] = useFormState(updateUserRoleAction, initialState);
 
-  const handleChange = async (event: ChangeEvent<HTMLSelectElement>) => {
-    const newRoleName = event.target.value;
+  const handleChange = async (value: string) => {
     const formData = new FormData();
     formData.append("email", email);
-    formData.append("roleToUpdate", newRoleName);
-
+    formData.append("roleToUpdate", value);
     action(formData);
   };
 
@@ -36,13 +41,26 @@ export const SelectRole = ({ userRoleName, email }: SelectRoleProps) => {
   }, [state]);
 
   return (
-    <select
-      className="select select-bordered w-full max-w-xs"
-      defaultValue={userRoleName}
-      onChange={handleChange}
-    >
-      <option value={UserRole.ADMIN}>{UserRole.ADMIN}</option>
-      <option value={UserRole.USER}>{UserRole.USER}</option>
-    </select>
+    <Select defaultValue={userRoleName} onValueChange={handleChange}>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Theme" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem
+          role="option"
+          aria-label={UserRole.ADMIN}
+          value={UserRole.ADMIN}
+        >
+          {UserRole.ADMIN}
+        </SelectItem>
+        <SelectItem
+          role="option"
+          aria-label={UserRole.USER}
+          value={UserRole.USER}
+        >
+          {UserRole.USER}
+        </SelectItem>
+      </SelectContent>
+    </Select>
   );
 };

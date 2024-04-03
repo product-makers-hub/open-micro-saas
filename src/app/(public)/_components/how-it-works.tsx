@@ -1,11 +1,14 @@
 import { landingPageContent } from "@/config/landing-page-config";
+import { Typography } from "@/components/ui/typography";
 
 export const HowItWorks = () => {
   const { title, steps } = landingPageContent.howItWorks;
 
   return (
     <div className="container mx-auto px-4">
-      <h2 className="text-3xl font-semibold text-center mb-8">{title}</h2>
+      <Typography component="h2" className="text-center mb-8">
+        {title}
+      </Typography>
       <div className="flex flex-wrap justify-center gap-10">
         {steps.map((step, index) => (
           <div key={index} className="max-w-sm flex-1">
@@ -13,7 +16,7 @@ export const HowItWorks = () => {
               <div className={`text-6xl font-bold text-blue-500`}>
                 {index + 1}
               </div>
-              <p className="mt-4 text-lg">{step}</p>
+              <Typography className="mt-4">{step}</Typography>
             </div>
           </div>
         ))}

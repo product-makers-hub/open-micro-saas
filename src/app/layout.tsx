@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Toaster } from "react-hot-toast";
+import { Inter as FontSans } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "@/components/auth/session-provider";
 import { Analytics } from "@/components/analytics/analytics";
 import { Support } from "@/components/support/support";
+import { Navbar } from "@/components/navbar";
 import { siteMetadata } from "@/config/site-metadata-config";
+import { cn } from "@/libs/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: siteMetadata.title,
@@ -25,9 +31,17 @@ export default function RootLayout({
       <Analytics />
       <Support />
       <SessionProvider>
-        <body className={inter.className}>
-          <Toaster />
-          {children}
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable,
+          )}
+        >
+          <ThemeProvider attribute="class" defaultTheme="system">
+            <Navbar />
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </body>
       </SessionProvider>
     </html>

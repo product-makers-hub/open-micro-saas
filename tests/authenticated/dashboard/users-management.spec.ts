@@ -87,11 +87,17 @@ test.describe("User management", () => {
     await expect(userRow).toBeVisible();
 
     const userRoleSelect = userRow
-      .getByRole("cell", { name: UserRole.USER })
+      .getByRole("cell", {
+        name: UserRole.USER,
+        exact: true,
+      })
       .getByRole("combobox");
+
     await expect(userRoleSelect).toBeVisible();
 
-    await userRoleSelect.selectOption({ label: UserRole.ADMIN });
+    await userRoleSelect.click();
+
+    await page.getByRole("option", { name: UserRole.ADMIN }).click();
 
     await expect(page.getByText("User role was updated")).toBeVisible();
   });
