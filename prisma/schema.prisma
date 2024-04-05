@@ -60,3 +60,11 @@ model Account {
   expires    DateTime
   @@unique([identifier, token])
 }
+
+model FeatureFlags {
+  id        String    @id @default(cuid())
+  name      String
+  isEnabled Boolean
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}

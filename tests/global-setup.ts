@@ -12,6 +12,7 @@ import {
   createInactiveUser,
   createAdminUser,
   createActiveUser,
+  createFeatureFlags,
 } from "../prisma/seeds/seed";
 
 /**
@@ -30,6 +31,7 @@ let mailServer: MailServer;
 // Is closed but still not working.
 setup.beforeAll(async () => {
   await truncateDb();
+  await createFeatureFlags();
   mailServer = smtpTester.init(4025);
 });
 
