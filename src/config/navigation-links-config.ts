@@ -22,6 +22,10 @@ export const adminNavLinks = [
     title: "User Management",
     url: "/admin/dashboard/user-management",
   },
+  {
+    title: "Feature Flags",
+    url: "/admin/dashboard/feature-flags",
+  },
 ];
 
 export const authenticatedUserNavLinks = [
