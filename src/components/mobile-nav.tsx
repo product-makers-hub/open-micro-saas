@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 import {
@@ -20,8 +23,10 @@ interface MobileNavProps {
 }
 
 export const MobileNav = ({ links }: MobileNavProps) => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger asChild>
         <Button className="lg:hidden" variant="outline">
           <svg
@@ -41,7 +46,12 @@ export const MobileNav = ({ links }: MobileNavProps) => {
         </SheetHeader>
         <div className="text-sm dark:text-muted-foreground">
           {links.map((link) => (
-            <Link className="block p-4" key={link.title} href={link.url}>
+            <Link
+              className="block p-4"
+              key={link.title}
+              href={link.url}
+              onClick={() => setIsSheetOpen(false)}
+            >
               {link.title}
             </Link>
           ))}

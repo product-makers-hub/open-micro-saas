@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { signOut } from "next-auth/react";
 import { UserRole } from "@prisma/client";
 
@@ -16,6 +17,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const UserDropdown = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, status } = useAuth();
 
   if (status === "loading") {
@@ -23,7 +25,7 @@ export const UserDropdown = () => {
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
       <DropdownMenuTrigger>
         <Avatar aria-label="user menu">
           <AvatarImage
@@ -36,13 +38,21 @@ export const UserDropdown = () => {
       <DropdownMenuContent>
         {user?.role === UserRole.ADMIN && (
           <DropdownMenuItem>
-            <Link href="/admin/dashboard" className="justify-between">
+            <Link
+              href="/admin/dashboard"
+              className="justify-between"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
               Admin Dashboard
             </Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem>
-          <Link href="/profile" className="justify-between">
+          <Link
+            href="/profile"
+            className="justify-between"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
             Profile
           </Link>
         </DropdownMenuItem>
