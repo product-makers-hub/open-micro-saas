@@ -12,13 +12,13 @@ interface User {
 }
 
 export const getUserByEmail = async (email: string) => {
-  return await prisma.user.findUnique({
+  return prisma.user.findUnique({
     where: { email },
   });
 };
 
 export const getUserByUid = async (uid: string) => {
-  return await prisma.user.findUnique({
+  return prisma.user.findUnique({
     where: { id: uid },
   });
 };
@@ -31,7 +31,7 @@ export const createOrUpdateUser = async ({
   emailVerified,
   image,
 }: User) => {
-  return await prisma.user.upsert({
+  return prisma.user.upsert({
     where: { email: email },
     update: {},
     create: {
@@ -46,7 +46,7 @@ export const createOrUpdateUser = async ({
 };
 
 export const getManyUsers = async () => {
-  return await prisma.user.findMany({
+  return prisma.user.findMany({
     select: {
       id: true,
       email: true,
@@ -76,7 +76,7 @@ export const toggleUserAccessByEmail = async (email: string) => {
 
 export const updateUserRoleByEmail = async (email: string, role: UserRole) => {
   try {
-    return await prisma.user.update({
+    return prisma.user.update({
       where: { email },
       data: {
         role: role,
@@ -92,7 +92,7 @@ export const updateStripeCustomerIdByEmail = async (
   email: string,
   stripeCustomerId: string,
 ) => {
-  return await prisma.user.update({
+  return prisma.user.update({
     where: { email },
     data: {
       stripeCustomerId,
@@ -103,7 +103,7 @@ export const updateStripeCustomerIdByEmail = async (
 export const activeUserByStripeCustomerId = async (
   stripeCustomerId: string,
 ) => {
-  return await prisma.user.update({
+  return prisma.user.update({
     where: {
       stripeCustomerId: stripeCustomerId,
     },
@@ -116,7 +116,7 @@ export const activeUserByStripeCustomerId = async (
 export const desactiveUserByStripeCustomerId = async (
   stripeCustomerId: string,
 ) => {
-  return await prisma.user.update({
+  return prisma.user.update({
     where: {
       stripeCustomerId: stripeCustomerId,
     },
