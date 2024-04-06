@@ -37,12 +37,10 @@ export const FeatureFlagsTable = async () => {
               aria-label={featureFlag.name as string}
             >
               <TableCell align="left">
-                <div className="flex items-center gap-4 justify-center pb-8">
-                  <Switch
-                    defaultChecked={featureFlag.isEnabled}
-                    title={featureFlag.isEnabled ? "Enabled" : "Disabled"}
-                  />
-                </div>
+                <Switch
+                  defaultChecked={featureFlag.isEnabled}
+                  title={featureFlag.isEnabled ? "Enabled" : "Disabled"}
+                />
               </TableCell>
               <TableCell>{featureFlag.name}</TableCell>
               <TableCell align="left">

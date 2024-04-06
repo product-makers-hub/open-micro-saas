@@ -57,7 +57,6 @@ async function main() {
   await createAdminUser();
   await createActiveUser();
   await createInactiveUser();
-  await createFeatureFlags();
 }
 
 if (require.main === module) {
