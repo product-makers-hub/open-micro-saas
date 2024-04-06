@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import {
   getFeatureFlags,
   createFeatureFlag,
+  getFeatureFlagByName,
+  updateFeatureFlag,
 } from "@/repositories/feature-flags";
 import { getIsAdmin } from "@/libs/auth/auth-utils";
 import { featureFlagSchema } from "./schemas";
@@ -47,4 +49,49 @@ export const createFeatureFlagAction = async (
   await createFeatureFlag(name, isEnabled);
   revalidatePath("/admin/dashboard/feature-flags");
   return { success: true };
+};
+
+interface ToggleFeatureFlagResult {
+  success: boolean;
+  errorMessage?: {
+    isEnabled?: string[] | undefined;
+  };
+}
+
+export const toggleFeatureFlagAction = async (
+  name: string,
+  isEnabled: boolean,
+): Promise<ToggleFeatureFlagResult> => {
+  try {
+    const isAdmin = await getIsAdmin();
+
+    if (!isAdmin) {
+      return { success: false };
+    }
+
+    if (!name) {
+      return {
+        success: false,
+        errorMessage: { isEnabled: ["Name is required"] },
+      };
+    }
+
+    const featureFlag = await getFeatureFlagByName(name);
+
+    if (!featureFlag) {
+      return {
+        success: false,
+        errorMessage: { isEnabled: ["Feature flag not found"] },
+      };
+    }
+
+    await updateFeatureFlag(featureFlag.id, !isEnabled);
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      errorMessage: { isEnabled: ["Could not update feature flag"] },
+    };
+  }
 };

@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Typography } from "@/components/ui/typography";
-import { Switch } from "@/components/ui/switch";
+import { FeatureFlagSwitch } from "./feature-flag-switch";
 import { getFeatureFlagsAction } from "../actions";
 
 const tableHeaders = ["Is enabled", "Name", "Created at (YYYY-MM-DD)"];
@@ -37,9 +37,9 @@ export const FeatureFlagsTable = async () => {
               aria-label={featureFlag.name as string}
             >
               <TableCell align="left">
-                <Switch
-                  defaultChecked={featureFlag.isEnabled}
-                  title={featureFlag.isEnabled ? "Enabled" : "Disabled"}
+                <FeatureFlagSwitch
+                  isEnabled={featureFlag.isEnabled}
+                  name={featureFlag.name}
                 />
               </TableCell>
               <TableCell>{featureFlag.name}</TableCell>

@@ -15,8 +15,15 @@ export const createFeatureFlag = async (name: string, isEnabled?: boolean) => {
   });
 };
 
-// export const getFeatureFlag = async (name: string) => {
-//   return prisma.featureFlags.findUnique({
-//     where: { name, id: undefined },
-//   });
-// };
+export const getFeatureFlagByName = async (name: string) => {
+  return prisma.featureFlags.findUnique({
+    where: { name },
+  });
+};
+
+export const updateFeatureFlag = async (id: string, isEnabled: boolean) => {
+  return prisma.featureFlags.update({
+    where: { id },
+    data: { isEnabled },
+  });
+};

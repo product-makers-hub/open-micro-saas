@@ -63,7 +63,7 @@ model Account {
 
 model FeatureFlags {
   id        String    @id @default(cuid())
-  name      String
+  name      String    @unique
   isEnabled Boolean
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

@@ -176,3 +176,28 @@ test.describe("Feature flags creation", () => {
     ).toBeVisible();
   });
 });
+
+test.describe("Feature flags update", () => {
+  test("admin can update a feature flag", async ({ page }) => {
+    await page.goto(featureFlagsRoute);
+
+    const featureFlagRow = page.getByRole("row", {
+      name: firstFeatureFlag.name,
+      exact: true,
+    });
+
+    const toggleSwitch = featureFlagRow.getByRole("switch", {
+      name: /enabled/i,
+    });
+
+    await expect(toggleSwitch).toBeChecked();
+
+    await toggleSwitch.click();
+
+    await expect(toggleSwitch).not.toBeChecked();
+
+    await expect(
+      page.getByText(/Feature flag updated successfully/i),
+    ).toBeVisible();
+  });
+});
