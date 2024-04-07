@@ -27,3 +27,9 @@ export const updateFeatureFlag = async (id: string, isEnabled: boolean) => {
     data: { isEnabled },
   });
 };
+
+export const deleteFeatureFlag = async (name: string) => {
+  return prisma.featureFlags.delete({
+    where: { name },
+  });
+};

@@ -8,9 +8,15 @@ import {
 } from "@/components/ui/table";
 import { Typography } from "@/components/ui/typography";
 import { FeatureFlagSwitch } from "./feature-flag-switch";
+import { DeleteFeatureFlagDialog } from "./delete-feature-flag-dialog";
 import { getFeatureFlagsAction } from "../actions";
 
-const tableHeaders = ["Is enabled", "Name", "Created at (YYYY-MM-DD)"];
+const tableHeaders = [
+  "Is enabled",
+  "Name",
+  "Created at (YYYY-MM-DD)",
+  "Actions",
+];
 
 export const FeatureFlagsTable = async () => {
   const featureFlags = await getFeatureFlagsAction();
@@ -49,6 +55,9 @@ export const FeatureFlagsTable = async () => {
                   month: "2-digit",
                   year: "numeric",
                 })}
+              </TableCell>
+              <TableCell align="left">
+                <DeleteFeatureFlagDialog name={featureFlag.name} />
               </TableCell>
             </TableRow>
           ))}

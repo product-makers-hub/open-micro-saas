@@ -7,6 +7,7 @@ import {
   createFeatureFlag,
   getFeatureFlagByName,
   updateFeatureFlag,
+  deleteFeatureFlag,
 } from "@/repositories/feature-flags";
 import { getIsAdmin } from "@/libs/auth/auth-utils";
 import { featureFlagSchema } from "./schemas";
@@ -93,5 +94,21 @@ export const toggleFeatureFlagAction = async (
       success: false,
       errorMessage: { isEnabled: ["Could not update feature flag"] },
     };
+  }
+};
+
+export const deleteFeatureFlagAction = async (name: string) => {
+  try {
+    const isAdmin = await getIsAdmin();
+
+    if (!isAdmin) {
+      return { success: false };
+    }
+
+    await deleteFeatureFlag(name);
+    revalidatePath("/admin/dashboard/feature-flags");
+    return { success: true };
+  } catch (error) {
+    return { success: false };
   }
 };

@@ -40,6 +40,9 @@ test.describe("Feature flags dashboard (Admin)", () => {
     await expect(
       tableHeaders.getByRole("cell", { name: /created at/i }),
     ).toBeVisible();
+    await expect(
+      tableHeaders.getByRole("cell", { name: /actions/i }),
+    ).toBeVisible();
   });
 
   test("admin user can see users details", async ({ page }) => {
@@ -54,6 +57,9 @@ test.describe("Feature flags dashboard (Admin)", () => {
 
     await expect(
       featureFlagRow.getByRole("cell", { name: firstFeatureFlag.name }),
+    ).toBeVisible();
+    await expect(
+      featureFlagRow.getByRole("button", { name: /delete/i }),
     ).toBeVisible();
   });
 
@@ -199,5 +205,75 @@ test.describe("Feature flags update", () => {
     await expect(
       page.getByText(/Feature flag updated successfully/i),
     ).toBeVisible();
+  });
+});
+
+test.describe("Feature flags deletion", () => {
+  test("admin can see a confirmation message before delete a feature flag", async ({
+    page,
+  }) => {
+    await page.goto(featureFlagsRoute);
+
+    const featureFlagRow = page.getByRole("row", {
+      name: firstFeatureFlag.name,
+      exact: true,
+    });
+
+    const deleteButton = featureFlagRow.getByRole("button", {
+      name: /delete/i,
+    });
+
+    await expect(
+      page.getByRole("dialog", { name: /delete feature flag/i }),
+    ).not.toBeVisible();
+
+    await deleteButton.click();
+
+    await expect(
+      page.getByRole("dialog", { name: /delete feature flag/i }),
+    ).toBeVisible();
+    await expect(
+      page
+        .getByRole("dialog", { name: /delete feature flag/i })
+        .getByText(`Are you sure you want to delete ${firstFeatureFlag.name}?`),
+    ).toBeVisible();
+  });
+
+  test("admin can delete a feature flag", async ({ page }) => {
+    // arrange
+    await page.goto(featureFlagsRoute);
+
+    const featureFlagRow = page.getByRole("row", {
+      name: firstFeatureFlag.name,
+      exact: true,
+    });
+
+    const deleteButton = featureFlagRow.getByRole("button", {
+      name: /delete/i,
+    });
+
+    await deleteButton.click();
+
+    const dialog = page.getByRole("dialog", { name: /delete feature flag/i });
+
+    const deleteFeatureFlagButton = dialog.getByRole("button", {
+      name: /delete/i,
+    });
+
+    // act
+    await deleteFeatureFlagButton.click();
+
+    // assert
+    await expect(
+      page.getByText("Feature flag deleted successfully"),
+    ).toBeVisible();
+
+    await expect(
+      page.getByRole("dialog", { name: /delete feature flag/i }),
+    ).not.toBeVisible();
+
+    await expect(
+      page.getByRole("row", { name: firstFeatureFlag.name }),
+    ).not.toBeVisible();
   });
 });
