@@ -20,6 +20,12 @@ export const UserDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, status } = useAuth();
 
+  const handleLogout = async () => {
+    await signOut({
+      callbackUrl: "/login",
+    });
+  };
+
   if (status === "loading") {
     return null;
   }
@@ -63,7 +69,7 @@ export const UserDropdown = () => {
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <button onClick={async () => await signOut()}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
