@@ -11,11 +11,11 @@ test.describe("Admin dashboard", () => {
     ).toBeVisible();
   });
 
-  test("admin dashboard has a main navbar navigation", async ({ page }) => {
+  test("admin dashboard has a admin sidenav navigation", async ({ page }) => {
     await page.goto(authConfig.adminUserCallbackUrl);
 
     await expect(
-      page.getByRole("navigation", { name: /main navbar/i }),
+      page.getByRole("navigation", { name: /Admin sidenav/i }),
     ).toBeVisible();
   });
 
@@ -23,7 +23,7 @@ test.describe("Admin dashboard", () => {
     await page.goto(authConfig.adminUserCallbackUrl);
 
     await page
-      .getByRole("navigation", { name: /main navbar/i })
+      .getByRole("navigation", { name: /Admin sidenav/i })
       .getByRole("link", { name: /user management/i })
       .click();
 
@@ -36,7 +36,7 @@ test.describe("Admin dashboard", () => {
     await page.goto(authConfig.adminUserCallbackUrl);
 
     await page
-      .getByRole("navigation", { name: /main navbar/i })
+      .getByRole("navigation", { name: /Admin sidenav/i })
       .getByRole("link", { name: /feature flags/i })
       .click();
 

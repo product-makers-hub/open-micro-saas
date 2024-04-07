@@ -13,8 +13,6 @@ test.describe("Logout user", () => {
     await page.getByRole("button", { name: /logout/i }).click();
 
     // assert
-    await expect(page.getByRole("link", { name: /login/i })).toBeVisible({
-      timeout: 15000,
-    });
+    await expect(page.getByRole("link", { name: /login/i })).toBeVisible();
   });
 });

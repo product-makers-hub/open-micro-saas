@@ -3,24 +3,8 @@ import { UserRole } from "@prisma/client";
 
 import { normalUser } from "../../data/normal-user";
 import { inactiveUser } from "../../data/inactive-user";
-import { authConfig } from "@/config/auth-config";
 
 test.describe("User management", () => {
-  test("admin user can navigate to user management page", async ({ page }) => {
-    await page.goto(authConfig.adminUserCallbackUrl);
-
-    await page
-      .getByRole("navigation", { name: /main navbar/i })
-      .getByRole("link", { name: /user management/i })
-      .click();
-
-    await expect(page).toHaveURL("/admin/dashboard/user-management");
-
-    await expect(
-      page.getByRole("heading", { name: /user management/i }),
-    ).toBeVisible();
-  });
-
   test("admin user can see list of users", async ({ page }) => {
     await page.goto("/admin/dashboard/user-management");
 
