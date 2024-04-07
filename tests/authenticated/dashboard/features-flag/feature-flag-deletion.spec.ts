@@ -6,7 +6,7 @@ import {
 } from "./feature-flag-helpers";
 import { featureFlags } from "../../../data/feature-flags";
 
-const [firstFeatureFlag] = featureFlags;
+const [, , thirdFeatureFlag] = featureFlags;
 
 test.describe("Feature flags deletion", () => {
   test.beforeEach(async ({ page }) => {
@@ -18,7 +18,7 @@ test.describe("Feature flags deletion", () => {
   }) => {
     const featureFlagRow = await getFeatureFlagRowByName(
       page,
-      firstFeatureFlag.name,
+      thirdFeatureFlag.name,
     );
 
     const deleteButton = featureFlagRow.getByRole("button", {
@@ -37,7 +37,7 @@ test.describe("Feature flags deletion", () => {
     await expect(
       page
         .getByRole("dialog", { name: /delete feature flag/i })
-        .getByText(`Are you sure you want to delete ${firstFeatureFlag.name}?`),
+        .getByText(`Are you sure you want to delete ${thirdFeatureFlag.name}?`),
     ).toBeVisible();
   });
 
@@ -46,7 +46,7 @@ test.describe("Feature flags deletion", () => {
 
     const featureFlagRow = await getFeatureFlagRowByName(
       page,
-      firstFeatureFlag.name,
+      thirdFeatureFlag.name,
     );
 
     const deleteButton = featureFlagRow.getByRole("button", {
@@ -74,7 +74,7 @@ test.describe("Feature flags deletion", () => {
     ).not.toBeVisible();
 
     await expect(
-      page.getByRole("row", { name: firstFeatureFlag.name }),
+      page.getByRole("row", { name: thirdFeatureFlag.name }),
     ).not.toBeVisible();
   });
 });

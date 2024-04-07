@@ -6,7 +6,7 @@ import {
 } from "./feature-flag-helpers";
 import { featureFlags } from "../../../data/feature-flags";
 
-const [firstFeatureFlag] = featureFlags;
+const [, secondFeatureFlag] = featureFlags;
 
 test.describe("Feature flags update", () => {
   test.beforeEach(async ({ page }) => {
@@ -16,7 +16,7 @@ test.describe("Feature flags update", () => {
   test("admin can update a feature flag", async ({ page }) => {
     const featureFlagRow = await getFeatureFlagRowByName(
       page,
-      firstFeatureFlag.name,
+      secondFeatureFlag.name,
     );
 
     const toggleSwitch = featureFlagRow.getByRole("switch", {
