@@ -2,9 +2,11 @@ import { PrismaClient } from "@prisma/client";
 
 import { UserRole } from "@prisma/client";
 import { createOrUpdateUser } from "@/repositories/user-repository";
+import { createFeatureFlag } from "@/repositories/feature-flags";
 import { inactiveUser as inactiveUserData } from "../../tests/data/inactive-user";
 import { adminUser as adminUserData } from "../../tests/data/admin-user";
 import { normalUser as normalUserData } from "../../tests/data/normal-user";
+import { featureFlags } from "../../tests/data/feature-flags";
 
 const prisma = new PrismaClient();
 
@@ -38,6 +40,17 @@ export async function createInactiveUser() {
   });
 
   console.log({ inactiveUser });
+}
+
+export async function createFeatureFlags() {
+  featureFlags.forEach(async (featureFlag) => {
+    const featureFlagCreated = await createFeatureFlag(
+      featureFlag.name,
+      featureFlag.isEnabled,
+    );
+
+    console.log({ featureFlagCreated });
+  });
 }
 
 async function main() {

@@ -31,4 +31,17 @@ test.describe("Admin dashboard", () => {
       page.getByRole("heading", { name: /user management/i }),
     ).toBeVisible();
   });
+
+  test("admin user can navigate to features flags page", async ({ page }) => {
+    await page.goto(authConfig.adminUserCallbackUrl);
+
+    await page
+      .getByRole("navigation", { name: /main navbar/i })
+      .getByRole("link", { name: /feature flags/i })
+      .click();
+
+    await expect(
+      page.getByRole("heading", { name: /feature flags/i }),
+    ).toBeVisible();
+  });
 });

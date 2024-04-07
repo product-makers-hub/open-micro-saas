@@ -63,7 +63,7 @@ export const UserDropdown = () => {
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <button onClick={() => signOut()}>Logout</button>
+          <button onClick={async () => await signOut()}>Logout</button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
