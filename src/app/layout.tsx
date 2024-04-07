@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "@/components/auth/session-provider";
 import { Analytics } from "@/components/analytics/analytics";
 import { Support } from "@/components/support/support";
-import { Navbar } from "@/components/navbar";
 import { siteMetadata } from "@/config/site-metadata-config";
 import { cn } from "@/libs/utils";
 
@@ -38,7 +37,6 @@ export default function RootLayout({
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system">
-            <Navbar />
             {children}
             <Toaster />
           </ThemeProvider>

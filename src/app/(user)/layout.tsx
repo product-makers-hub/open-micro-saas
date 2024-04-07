@@ -1,7 +1,12 @@
+import { UserNavbar } from "./_components/user-navbar";
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="">
-      <main className="">{children}</main>
-    </div>
+    <>
+      <UserNavbar />
+      <div className="px-6">
+        <main className="">{children}</main>
+      </div>
+    </>
   );
 }

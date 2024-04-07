@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { getIsAuth } from "@/libs/auth/auth-utils";
 import { authConfig } from "@/config/auth-config";
+import { PublicNavbar } from "@/components/navbar/public-navbar";
 
 export default async function Layout({
   children,
@@ -16,6 +17,7 @@ export default async function Layout({
 
   return (
     <div>
+      <PublicNavbar />
       <main>{children}</main>
     </div>
   );
