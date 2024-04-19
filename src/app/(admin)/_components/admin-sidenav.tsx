@@ -1,21 +1,23 @@
 import { adminNavLinks } from "@/config/navigation-links-config";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/components/ui/link";
+import { NavLink } from "@/components/ui/nav-link";
 
 export const AdminSidenav = () => {
   return (
     <aside
-      className="hidden max-h-full lg:block w-56 flex-shrink-0 border-r-2"
+      className="hidden max-h-full lg:block w-56 flex-shrink-0 border-r-2 px-4"
       role="navigation"
       aria-label="Admin sidenav"
     >
-      <ul className="">
+      <ul>
         {adminNavLinks.map((link) => (
-          <Button asChild key={link.url} variant="link">
-            <Link className="mt-4" href={link.url}>
+          <li key={link.url} className="mt-4 flex gap-2">
+            <NavLink
+              className="w-full hover:bg-primary-foreground p-2 rounded transition-colors"
+              href={link.url}
+            >
               {link.title}
-            </Link>
-          </Button>
+            </NavLink>
+          </li>
         ))}
       </ul>
     </aside>
