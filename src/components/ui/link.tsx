@@ -1,6 +1,7 @@
 import NextLink from "next/link";
 
-interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
 }
 
