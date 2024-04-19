@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { authConfig } from "@/config/auth-config";
 import { getIsAuth, getIsAdmin } from "@/libs/auth/auth-utils";
 import { UserNavbar } from "./_components/user-navbar";
+import { UserSidenav } from "./_components/user-sidenav";
 
 export default async function Layout({
   children,
@@ -24,9 +25,10 @@ export default async function Layout({
   return (
     <>
       <UserNavbar />
-      <div className="px-6">
-        <main className="">{children}</main>
-      </div>
+      <section className="lg:flex lg:h-[calc(100vh-80px)]">
+        <UserSidenav />
+        <main className="flex-1 px-6 pt-4 overflow-auto">{children}</main>
+      </section>
     </>
   );
 }
