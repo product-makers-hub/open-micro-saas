@@ -29,4 +29,13 @@ test.describe("Protected routes", () => {
     await expect(page).toHaveURL(new RegExp(authConfig.loginUrl));
     await expect(page).not.toHaveURL("/admin/dashboard");
   });
+
+  test("should redirect to login page when trying to access to /profile route", async ({
+    page,
+  }) => {
+    await page.goto("/profile");
+
+    await expect(page).toHaveURL(new RegExp(authConfig.loginUrl));
+    await expect(page).not.toHaveURL("/profile");
+  });
 });

@@ -32,7 +32,7 @@ const Typography: FunctionComponent<Props> = ({
   const selectClassNames = (component: AllowedComponents) => {
     switch (component) {
       case "h1":
-        return "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl";
+        return "scroll-m-20 text-4xl font-extrabold tracking-tight";
       case "h2":
         return "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0";
       case "h3":
