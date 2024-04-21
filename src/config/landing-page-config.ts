@@ -70,8 +70,8 @@ export const landingPageContent = {
     links: [
       { title: "About", url: "#" },
       { title: "Contact", url: "#" },
-      { title: "Privacy Policy", url: "#" },
-      { title: "Terms of Service", url: "#" },
+      { title: "Privacy Policy", url: "/privacy" },
+      { title: "Terms of Service", url: "/terms" },
     ],
   },
 };

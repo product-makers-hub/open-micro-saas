@@ -12,6 +12,6 @@ test("navigation to login", async ({ page }) => {
   // assert
   await expect(page).toHaveURL(authConfig.loginUrl);
   await expect(
-    page.getByRole("heading", { name: /Sign in to your account/i }),
+    page.getByRole("heading", { name: /Sign in or create an account/i }),
   ).toBeVisible();
 });

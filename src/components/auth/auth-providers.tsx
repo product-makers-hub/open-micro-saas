@@ -14,8 +14,6 @@ export const AuthProviders = () => {
     <>
       {providers &&
         Object.values(providers).map((provider) => {
-          if (provider.id === "email") return null;
-
           return (
             <div key={provider.name} className="mr-2">
               <Button
