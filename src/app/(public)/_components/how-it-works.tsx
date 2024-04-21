@@ -5,7 +5,7 @@ export const HowItWorks = () => {
   const { title, steps } = landingPageContent.howItWorks;
 
   return (
-    <div className="container mx-auto px-4">
+    <>
       <Typography component="h2" className="text-center mb-8">
         {title}
       </Typography>
@@ -21,6 +21,6 @@ export const HowItWorks = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };

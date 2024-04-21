@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export const HeroWithFigure = () => {
   return (
-    <div className="container mx-auto py-16 px-6 lg:px-8">
+    <div className="py-16">
       <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
         <div className="flex-1 flex justify-center lg:justify-start">
           <Image

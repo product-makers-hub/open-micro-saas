@@ -11,6 +11,7 @@ import { AuthProviders } from "@/components/auth/auth-providers";
 import { getHumanErrorMessage } from "@/libs/auth/auth-errors-utils";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
+import { Link } from "@/components/ui/link";
 import {
   Form,
   FormControl,
@@ -70,59 +71,77 @@ export default function LoginPage() {
   const errorMessage = loginError || searchParams.get("error");
 
   return (
-    <div className="min-h-screen flex items-center justify-center container">
-      <div className="max-w-md w-full space-y-6">
-        <div>
-          <Typography component="h2" className="mt-6 text-center">
-            Sign in to your account
-          </Typography>
+    <div className="h-[calc(100vh-80px)]">
+      <div className="flex items-center justify-center container h-full">
+        <div className="max-w-md w-full space-y-6">
+          <div>
+            <Typography component="h2" className="mt-6 text-center">
+              Sign in or create an account
+            </Typography>
+          </div>
+          {isEmailLoginSuccess && (
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+              <strong className="block font-bold">Success!</strong>
+              <div className="block sm:inline">
+                Please check your email for the magic link.
+              </div>
+            </div>
+          )}
+          {errorMessage && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+              <strong className="block font-bold">Error!</strong>
+              <span className="block sm:inline">
+                {getHumanErrorMessage(errorMessage)}
+              </span>
+            </div>
+          )}
+
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-8"
+            >
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="john.doe@mail.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex justify-center">
+                <Button disabled={isLoading} type="submit" className="w-full">
+                  Sign in with Email
+                </Button>
+              </div>
+            </form>
+          </Form>
+
+          <Typography className="text-center">Or sign in with</Typography>
+
+          <AuthProviders />
+
+          <div className="mt-2">
+            <Typography
+              component="small"
+              className="dark:text-gray-300 text-gray-700"
+            >
+              By creating an account, you agree to our{" "}
+              <Link href="/terms" className="font-extrabold">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link className="font-extrabold" href="/privacy">
+                Privacy Policy.
+              </Link>
+            </Typography>
+          </div>
         </div>
-        {isEmailLoginSuccess && (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-            <strong className="block font-bold">Success!</strong>
-            <div className="block sm:inline">
-              Please check your email for the magic link.
-            </div>
-          </div>
-        )}
-        {errorMessage && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-            <strong className="block font-bold">Error!</strong>
-            <span className="block sm:inline">
-              {getHumanErrorMessage(errorMessage)}
-            </span>
-          </div>
-        )}
-
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-8"
-          >
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="john.doe@mail.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex justify-center">
-              <Button disabled={isLoading} type="submit">
-                Sign in with Email
-              </Button>
-            </div>
-          </form>
-        </Form>
-
-        <Typography className="text-center">Or sign in with</Typography>
-
-        <AuthProviders />
       </div>
     </div>
   );

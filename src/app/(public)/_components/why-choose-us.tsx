@@ -5,7 +5,7 @@ export const WhyChooseUs = () => {
   const { title, reasons } = landingPageContent.whyChooseUs;
 
   return (
-    <div className="container mx-auto px-4">
+    <>
       <Typography component="h2" className="text-center mb-8">
         {title}
       </Typography>
@@ -39,6 +39,6 @@ export const WhyChooseUs = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };

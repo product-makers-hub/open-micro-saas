@@ -18,7 +18,7 @@ export default async function Layout({
   return (
     <div>
       <PublicNavbar />
-      <main>{children}</main>
+      <main className="container">{children}</main>
     </div>
   );
 }

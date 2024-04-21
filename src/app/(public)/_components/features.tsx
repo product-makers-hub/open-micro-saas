@@ -5,7 +5,7 @@ export const FeaturesSection = () => {
   const { title, features } = landingPageContent.featuresOverview;
 
   return (
-    <div className="container mx-auto px-4">
+    <>
       <Typography component="h2" className="text-center">
         {title}
       </Typography>
@@ -19,6 +19,6 @@ export const FeaturesSection = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };

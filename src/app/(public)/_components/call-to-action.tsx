@@ -6,7 +6,7 @@ export const CallToAction = () => {
   const { text, cta } = landingPageContent.callToAction;
 
   return (
-    <div className="container mx-auto text-center px-4">
+    <div className="text-center">
       <Typography component="h3" className="pb-4">
         {text}
       </Typography>

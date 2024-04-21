@@ -12,7 +12,7 @@ test.describe("Login page", () => {
     await page.goto(authConfig.loginUrl);
 
     await expect(
-      page.getByRole("heading", { name: /Sign in to your account/i }),
+      page.getByRole("heading", { name: /Sign in or create an account/i }),
     ).toBeVisible();
   });
 
@@ -63,6 +63,16 @@ test.describe("Login page", () => {
 
     await expect(
       page.getByText(/The e-mail could not be sent. Please try again./i),
+    ).toBeVisible();
+  });
+
+  test("should display the policies and terms link", async ({ page }) => {
+    await page.goto(authConfig.loginUrl);
+
+    await expect(
+      page.getByText(
+        /By creating an account, you agree to our Terms of Service and Privacy Policy/i,
+      ),
     ).toBeVisible();
   });
 });
