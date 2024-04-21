@@ -3,7 +3,7 @@ import { Footer } from "../_components/footer";
 
 export default function PrivacyPage() {
   return (
-    <div className="container mx-auto pt-16 px-6 lg:px-8">
+    <div className="pt-16">
       <Typography component="h1">Privacy Policy</Typography>
       <Typography>Last updated: [Date]</Typography>
 
