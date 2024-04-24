@@ -25,10 +25,10 @@ export default async function Layout({
   return (
     <>
       <UserNavbar />
-      <section className="lg:flex lg:h-[calc(100vh-80px)]">
+      <main className="lg:flex lg:h-[calc(100vh-80px)]">
         <UserSidenav />
-        <main className="flex-1 px-6 pt-4 overflow-auto">{children}</main>
-      </section>
+        <section className="flex-1 px-6 pt-4 overflow-auto">{children}</section>
+      </main>
     </>
   );
 }

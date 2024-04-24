@@ -16,7 +16,7 @@ import {
 export const Pricing = () => {
   return (
     <>
-      <Typography component="h1" className="text-center">
+      <Typography component="h2" className="text-center">
         {paymentsConfig.title}
       </Typography>
       <Typography className="text-lg text-center">
@@ -26,7 +26,7 @@ export const Pricing = () => {
       <div className="px-4 py-8 text-center">
         <div className="flex items-center gap-4 justify-center pb-8">
           <Label htmlFor="anual-mode">Month</Label>
-          <Switch id="anual-mode" />
+          <Switch id="anual-mode" aria-label="Plan mode" />
           <Label htmlFor="anual-mode">Anual (save %)</Label>
         </div>
 

@@ -75,7 +75,7 @@ export default function LoginPage() {
       <div className="flex items-center justify-center container h-full">
         <div className="max-w-md w-full space-y-6">
           <div>
-            <Typography component="h2" className="mt-6 text-center">
+            <Typography component="h1" className="mt-6 text-center">
               Sign in or create an account
             </Typography>
           </div>

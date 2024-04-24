@@ -31,7 +31,7 @@ test.describe("Active user dashboard", () => {
     await page.goto(authConfig.normalUserCallbackUrl);
 
     await expect(
-      page.getByRole("navigation", { name: /user sidenav/i }),
+      page.getByRole("complementary", { name: /user sidenav/i }),
     ).toBeVisible();
   });
 
@@ -40,7 +40,7 @@ test.describe("Active user dashboard", () => {
 
     await expect(
       page
-        .getByRole("navigation", { name: /user sidenav/i })
+        .getByRole("complementary", { name: /user sidenav/i })
         .getByRole("link", { name: /dashboard/i }),
     ).toBeVisible();
   });

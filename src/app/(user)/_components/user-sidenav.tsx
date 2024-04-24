@@ -5,7 +5,6 @@ export const UserSidenav = () => {
   return (
     <aside
       className="hidden max-h-full lg:block w-64 flex-shrink-0 border-r-2 px-4"
-      role="navigation"
       aria-label="User sidenav"
     >
       <ul>

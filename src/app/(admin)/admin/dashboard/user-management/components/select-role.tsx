@@ -42,8 +42,8 @@ export const SelectRole = ({ userRoleName, email }: SelectRoleProps) => {
 
   return (
     <Select defaultValue={userRoleName} onValueChange={handleChange}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Theme" />
+      <SelectTrigger className="w-[180px]" aria-label="select user role">
+        <SelectValue placeholder="Select user role" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem
