@@ -1,6 +1,8 @@
 "use client";
 
 import { useAuth } from "@/hooks/use-auth";
+import { Typography } from "@/components/ui/typography";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardPage() {
   const { user, status } = useAuth();
@@ -8,34 +10,30 @@ export default function DashboardPage() {
   if (status === "loading") return <p>Loading...</p>;
 
   return (
-    <section>
+    <>
       <header>
-        <div className="">
-          <h1 className="text-2xl font-semibold">Dashboard</h1>
+        <div>
+          <Typography component="h1">Dashboard</Typography>
         </div>
       </header>
 
-      <main>
-        <div className="">
-          <p>
-            <strong>Welcome, {user?.name}</strong>
-          </p>
-          {user?.isActive && (
-            <>
-              <div className="container mx-auto text-center py-10">
-                <h2 className="text-2xl font-semibold">
-                  Thank you for subscribing!
-                </h2>
-                <p className="text-md mt-2">Your plan is now active.</p>
+      <div>
+        <p>
+          <strong>Welcome, {user?.name}</strong>
+        </p>
+        {user?.isActive && (
+          <>
+            <div className="container mx-auto text-center py-10">
+              <Typography component="h2">Thank you for subscribing!</Typography>
+              <p className="text-md mt-2">Your plan is now active.</p>
 
-                <button className="mt-6 btn btn-primary">
-                  Explore Premium Features
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-      </main>
-    </section>
+              <Button variant="outline" className="mt-6 btn btn-primary">
+                Explore Premium Features
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }

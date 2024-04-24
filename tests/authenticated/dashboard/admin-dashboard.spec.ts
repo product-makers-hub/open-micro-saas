@@ -15,7 +15,7 @@ test.describe("Admin dashboard", () => {
     await page.goto(authConfig.adminUserCallbackUrl);
 
     await expect(
-      page.getByRole("navigation", { name: /Admin sidenav/i }),
+      page.getByRole("complementary", { name: /Admin sidenav/i }),
     ).toBeVisible();
   });
 
@@ -23,7 +23,7 @@ test.describe("Admin dashboard", () => {
     await page.goto(authConfig.adminUserCallbackUrl);
 
     await page
-      .getByRole("navigation", { name: /Admin sidenav/i })
+      .getByRole("complementary", { name: /Admin sidenav/i })
       .getByRole("link", { name: /user management/i })
       .click();
 
@@ -36,7 +36,7 @@ test.describe("Admin dashboard", () => {
     await page.goto(authConfig.adminUserCallbackUrl);
 
     await page
-      .getByRole("navigation", { name: /Admin sidenav/i })
+      .getByRole("complementary", { name: /Admin sidenav/i })
       .getByRole("link", { name: /feature flags/i })
       .click();
 

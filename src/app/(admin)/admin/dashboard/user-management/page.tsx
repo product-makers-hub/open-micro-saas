@@ -4,7 +4,7 @@ import { Typography } from "@/components/ui/typography";
 export default function UserManagementPage() {
   return (
     <>
-      <Typography component="h2">User management</Typography>
+      <Typography component="h1">User management</Typography>
 
       <section className="py-8">
         <UsersTable />
